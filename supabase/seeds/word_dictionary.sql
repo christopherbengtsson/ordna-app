@@ -1,0 +1,77 @@
+--
+-- Seed data for word_dictionary
+-- Contains example words for testing in English and Swedish
+--
+
+-- English words (en)
+INSERT INTO public.word_dictionary (language, word) VALUES
+  ('en', 'cat'),
+  ('en', 'dog'),
+  ('en', 'word'),
+  ('en', 'game'),
+  ('en', 'test'),
+  ('en', 'help'),
+  ('en', 'code'),
+  ('en', 'play'),
+  ('en', 'time'),
+  ('en', 'call'),
+  ('en', 'house'),
+  ('en', 'water'),
+  ('en', 'light'),
+  ('en', 'world'),
+  ('en', 'great'),
+  ('en', 'small'),
+  ('en', 'table'),
+  ('en', 'chair'),
+  ('en', 'phone'),
+  ('en', 'paper'),
+  ('en', 'letter'),
+  ('en', 'number'),
+  ('en', 'person'),
+  ('en', 'friend'),
+  ('en', 'family'),
+  ('en', 'school'),
+  ('en', 'teacher'),
+  ('en', 'student'),
+  ('en', 'computer'),
+  ('en', 'keyboard'),
+  ('en', 'elephant'),
+  ('en', 'birthday')
+ON CONFLICT (language, word) DO NOTHING;
+
+-- Swedish words (sv)
+INSERT INTO public.word_dictionary (language, word) VALUES
+  ('sv', 'apa'),
+  ('sv', 'katt'),
+  ('sv', 'hund'),
+  ('sv', 'ord'),
+  ('sv', 'spel'),
+  ('sv', 'test'),
+  ('sv', 'hjälp'),
+  ('sv', 'kod'),
+  ('sv', 'spela'),
+  ('sv', 'tid'),
+  ('sv', 'ringa'),
+  ('sv', 'hus'),
+  ('sv', 'vatten'),
+  ('sv', 'ljus'),
+  ('sv', 'värld'),
+  ('sv', 'stor'),
+  ('sv', 'liten'),
+  ('sv', 'bord'),
+  ('sv', 'stol'),
+  ('sv', 'telefon'),
+  ('sv', 'papper'),
+  ('sv', 'brev'),
+  ('sv', 'nummer'),
+  ('sv', 'person'),
+  ('sv', 'vän'),
+  ('sv', 'familj'),
+  ('sv', 'skola'),
+  ('sv', 'lärare'),
+  ('sv', 'elev'),
+  ('sv', 'dator'),
+  ('sv', 'tangentbord'),
+  ('sv', 'elefant'),
+  ('sv', 'födelsedag')
+ON CONFLICT (language, word) DO NOTHING;

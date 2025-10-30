@@ -1,0 +1,86 @@
+# Supabase Local Development Configuration
+# For detailed configuration reference documentation, visit:
+# https://supabase.com/docs/guides/local-development/cli/config
+
+project_id = "dansk"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db.migrations]
+schema_paths = [
+  "./schemas/misc/enums.sql",
+  "./schemas/tables/profiles.sql",
+  "./schemas/tables/games.sql",
+  "./schemas/tables/settings.sql",
+  "./schemas/tables/players.sql",
+  "./schemas/tables/rounds.sql",
+  "./schemas/tables/moves.sql",
+  "./schemas/tables/word_dictionary.sql",
+  "./schemas/tables/word_dictionary_partitions.sql",
+  "./schemas/security/rls.sql",
+  "./schemas/misc/helpers.sql",
+  "./schemas/functions/*.sql",
+]
+
+[db]
+port = 54322
+shadow_port = 54320
+major_version = 17
+
+[db.pooler]
+enabled = false
+port = 54329
+pool_mode = "transaction"
+default_pool_size = 20
+max_client_conn = 100
+
+[db.seed]
+enabled = true
+sql_paths = ["./seeds/*.sql"]
+
+[realtime]
+enabled = true
+
+[studio]
+enabled = true
+port = 54323
+api_url = "http://127.0.0.1"
+
+[inbucket]
+enabled = true
+port = 54324
+
+[storage]
+enabled = true
+file_size_limit = "50MiB"
+
+[auth]
+enabled = true
+site_url = "http://localhost:5173"
+additional_redirect_urls = ["http://localhost:5173"]
+jwt_expiry = 3600
+enable_signup = true
+enable_anonymous_sign_ins = true
+
+[auth.email]
+enable_signup = false
+double_confirm_changes = true
+enable_confirmations = false
+
+[auth.sms]
+enable_signup = false
+enable_confirmations = false
+
+[auth.external.apple]
+enabled = false
+
+[edge_runtime]
+enabled = false
+
+[analytics]
+enabled = false
