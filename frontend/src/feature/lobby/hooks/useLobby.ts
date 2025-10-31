@@ -3,7 +3,7 @@ import { supabaseClient } from '@/lib/supabase/client/supabaseClient';
 import type { LobbyDataIn } from '../model/LobbyDataIn';
 import { LobbyMapper } from '../mapper/LobbyMapper';
 import type { Lobby } from '../model/Lobby';
-import { QUERY_KEY } from '../../../common/util/constant/queryKey';
+import { FetchUtil } from '../../../common/util/constant/queryKey';
 
 const fetchLobby = async (args: LobbyDataIn): Promise<Lobby> => {
   const { data } = await supabaseClient
@@ -15,13 +15,14 @@ const fetchLobby = async (args: LobbyDataIn): Promise<Lobby> => {
 };
 
 export const useLobby = (gameId: string) => {
-  const { data, isPending } = useQuery({
+  const { data, error, isPending } = useQuery({
     queryFn: () => fetchLobby({ p_game_id: gameId }),
-    queryKey: [QUERY_KEY.GAME_LOBBY, gameId],
+    queryKey: [FetchUtil.QUERY_KEY.GAME_LOBBY, gameId],
   });
 
   return {
     lobbyData: data,
+    error,
     isFetchingLobbyData: isPending,
   };
 };

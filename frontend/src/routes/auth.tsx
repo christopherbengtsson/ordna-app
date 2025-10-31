@@ -68,8 +68,15 @@ function Auth() {
             <div>
               <p className="text-green-600 mb-2">✅ Authenticated</p>
               <div className="text-sm text-gray-600 space-y-1">
-                <p>User ID: <code className="bg-gray-100 px-2 py-1 rounded">{auth.user?.id}</code></p>
-                <p>Type: {auth.user?.is_anonymous ? 'Anonymous' : 'Registered'}</p>
+                <p>
+                  User ID:{' '}
+                  <code className="bg-gray-100 px-2 py-1 rounded">
+                    {auth.user?.id}
+                  </code>
+                </p>
+                <p>
+                  Type: {auth.user?.is_anonymous ? 'Anonymous' : 'Registered'}
+                </p>
               </div>
             </div>
           ) : (

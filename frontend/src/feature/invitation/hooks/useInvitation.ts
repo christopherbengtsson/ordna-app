@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabaseClient } from '@/lib/supabase/client/supabaseClient';
+import { FetchUtil } from '@/common/util/constant/queryKey';
 import type { AcceptInviteIn } from '../model/AcceptInviteIn';
-import { QUERY_KEY } from '../../../common/util/constant/queryKey';
 
 const acceptInvite = async (args: AcceptInviteIn) => {
   const { data } = await supabaseClient
@@ -19,9 +19,11 @@ export const useInitiation = () => {
     mutationFn: (args: AcceptInviteIn) => acceptInvite(args),
     onSuccess: (data) => {
       const gameId = data.game_id;
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.GAME_LIST] });
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEY.GAME_LOBBY, gameId],
+        queryKey: [FetchUtil.QUERY_KEY.GAME_LIST],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [FetchUtil.QUERY_KEY.GAME_LOBBY, gameId],
       });
     },
   });

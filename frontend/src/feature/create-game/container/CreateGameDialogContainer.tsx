@@ -70,7 +70,7 @@ export function CreateGameDialogContainer({ trigger }: Props) {
           </DrawerDescription>
         </DrawerHeader>
 
-        <ScrollArea className='overflow-y-auto'>
+        <ScrollArea className="overflow-y-auto">
           <CreateGameFormContainer onGameCreated={handleGameCreated} />
           <DrawerFooter className="pt-2 px-0">
             <DrawerClose asChild>

@@ -1,7 +1,7 @@
 export interface Lobby {
   id: string;
   gameId: string;
-  inviteCode: string;
+  inviteCode: string | undefined;
   hostPlayerId: string;
   players: {
     id: string;

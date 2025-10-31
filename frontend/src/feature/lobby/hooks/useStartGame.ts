@@ -1,10 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabaseClient } from '@/lib/supabase/client/supabaseClient';
+import { FetchUtil, type QueryKey } from '@/common/util/constant/queryKey';
 import type { StartGameIn } from '../model/StartGameIn';
-import {
-  QUERY_KEY,
-  type QueryKey,
-} from '../../../common/util/constant/queryKey';
 
 const startGame = async (args: StartGameIn) => {
   const { data } = await supabaseClient
@@ -27,9 +24,9 @@ export const useStartGame = (gameId: string) => {
           const param: string = query.queryKey[1] as string;
 
           return (
-            key === QUERY_KEY.GAME_LIST ||
-            (key === QUERY_KEY.GAME_DATA && param === gameId) ||
-            (key === QUERY_KEY.GAME_LOBBY && param === gameId)
+            key === FetchUtil.QUERY_KEY.GAME_LIST ||
+            (key === FetchUtil.QUERY_KEY.GAME_DATA && param === gameId) ||
+            (key === FetchUtil.QUERY_KEY.GAME_LOBBY && param === gameId)
           );
         },
       });

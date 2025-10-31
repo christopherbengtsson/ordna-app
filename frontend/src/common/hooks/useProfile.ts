@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { QUERY_KEY } from '../util/constant/queryKey';
+import { FetchUtil } from '../util/constant/queryKey';
 import { supabaseClient } from '../../lib/supabase/client/supabaseClient';
 
 const ONE_HOUR_MS = 3_600_000;
@@ -17,7 +17,7 @@ const getProfile = async () => {
 export const useProfile = (userId: string | undefined) => {
   const { data } = useQuery({
     queryFn: getProfile,
-    queryKey: [QUERY_KEY.PROFILE(userId ?? '')],
+    queryKey: [FetchUtil.QUERY_KEY.PROFILE(userId ?? '')],
     enabled: !!userId,
     staleTime: ONE_HOUR_MS,
   });

@@ -10,7 +10,7 @@ interface RpcLobbyPlayer {
 const fromRpc = (rpcLobby: RpcLobby): Lobby => ({
   id: rpcLobby.game_id,
   gameId: rpcLobby.game_id,
-  inviteCode: rpcLobby.invite_code,
+  inviteCode: rpcLobby.invite_code ?? undefined,
   hostPlayerId: rpcLobby.host_player_id,
   players:
     (rpcLobby.players as unknown as RpcLobbyPlayer[] | undefined)?.map((p) => ({

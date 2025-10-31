@@ -2,11 +2,10 @@ import { useCallback, useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { supabaseClient } from '@/lib/supabase/client/supabaseClient';
-import { QUERY_KEY } from '@/common/util/constant/queryKey';
+import { FetchUtil } from '@/common/util/constant/queryKey';
 import { Route } from '@/routes/_authenticated/game.$gameId';
 
 const callMoveTimeout = async (gameId: string) => {
-  return;
   await supabaseClient
     .rpc('call_in_game_timeout', { p_game_id: gameId })
     .throwOnError();
@@ -24,9 +23,11 @@ export const useTurnTimeout = (gameId: string) => {
   const { mutate, isPending } = useMutation({
     mutationFn: callMoveTimeout,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.GAME_LIST] });
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEY.GAME_DATA, gameId],
+        queryKey: [FetchUtil.QUERY_KEY.GAME_LIST],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [FetchUtil.QUERY_KEY.GAME_DATA, gameId],
       });
 
       toast.success('Turn timed out');

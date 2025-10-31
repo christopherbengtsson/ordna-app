@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { supabaseClient } from '@/lib/supabase/client/supabaseClient';
 import type { Database } from '@/common/model/generated/Database';
-import { QUERY_KEY } from '@/common/util/constant/queryKey';
+import { FetchUtil } from '@/common/util/constant/queryKey';
 import { Route } from '@/routes/_authenticated/game.$gameId';
 
 const resolveBluff = async (
@@ -19,9 +19,11 @@ export const useResolveBluff = (gameId: string) => {
     mutationFn: ({ gameId, word }: { word: string; gameId: string }) =>
       resolveBluff({ p_game_id: gameId, p_word: word }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.GAME_LIST] });
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEY.GAME_DATA, gameId],
+        queryKey: [FetchUtil.QUERY_KEY.GAME_LIST],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [FetchUtil.QUERY_KEY.GAME_DATA, gameId],
       });
 
       toast.success('Bluff resolved');

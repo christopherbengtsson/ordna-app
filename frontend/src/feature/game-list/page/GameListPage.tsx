@@ -8,10 +8,11 @@ import { LoadingGameList } from '../component/LoadingGameList';
 import { GameListContainer } from '../container/GameListContainer';
 import { CreateGameDialogContainer } from '../../create-game/container/CreateGameDialogContainer';
 import { EmptyGameListContainer } from '../container/EmptyGameListContainer';
+import { GameListError } from '../component/GameListError';
 
 export function GameListPage() {
   const auth = useAuth();
-  const { games, isLoading } = useGameList();
+  const { games, isLoading, error } = useGameList();
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   const noGames = useMemo(
@@ -29,6 +30,10 @@ export function GameListPage() {
     return <LoadingGameList />;
   }
 
+  if (error) {
+    return <GameListError />;
+  }
+
   return (
     <div className="container mx-auto max-w-4xl">
       <div className="flex items-center justify-between mb-6 md:mb-8">
@@ -38,7 +43,7 @@ export function GameListPage() {
           </div>
           <div>
             <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-clip-text text-primary">
-              Danskjävel
+              Orda
             </h1>
           </div>
         </div>

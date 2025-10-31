@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { supabaseClient } from '../../../lib/supabase/client/supabaseClient';
+import { supabaseClient } from '@/lib/supabase/client/supabaseClient';
+import { FetchUtil } from '@/common/util/constant/queryKey';
 import type { CreateGameIn } from '../model/CreateGameIn';
-import { QUERY_KEY } from '../../../common/util/constant/queryKey';
 
 const defaultArgs: CreateGameIn = {
   p_complete_move_timeout_seconds: 86400, // 24 hours
@@ -25,7 +25,9 @@ export const useCreateGame = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: (args: CreateGameIn) => createGame(args),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.GAME_LIST] });
+      queryClient.invalidateQueries({
+        queryKey: [FetchUtil.QUERY_KEY.GAME_LIST],
+      });
     },
   });
 

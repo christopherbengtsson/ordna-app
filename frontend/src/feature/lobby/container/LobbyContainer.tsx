@@ -126,9 +126,7 @@ export function LobbyContainer({ lobbyData, userId }: Props) {
 
             <Card className="shadow-card border-border/50">
               <CardHeader>
-                <CardTitle>
-                  {lobbyData.players.length} players joined
-                </CardTitle>
+                <CardTitle>{lobbyData.players.length} players joined</CardTitle>
               </CardHeader>
               <CardContent>
                 <Accordion type="single" collapsible>

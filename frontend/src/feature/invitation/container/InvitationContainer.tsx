@@ -37,7 +37,11 @@ export function InvitationContainer({ inviteCode }: Props) {
 
   const onInviteAccepted = (gameId: string, autoStarted: boolean) => {
     if (autoStarted) {
-      navigate({ to: '/', replace: true });
+      navigate({
+        to: '/waiting-room/$gameId',
+        params: { gameId },
+        replace: true,
+      });
     } else {
       navigate({ to: '/lobby/$gameId', params: { gameId }, replace: true });
     }

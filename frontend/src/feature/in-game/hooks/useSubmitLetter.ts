@@ -3,7 +3,7 @@ import { toast } from 'sonner';
 import { Route } from '@/routes/_authenticated/game.$gameId';
 import { supabaseClient } from '@/lib/supabase/client/supabaseClient';
 import type { Database } from '@/common/model/generated/Database';
-import { QUERY_KEY } from '@/common/util/constant/queryKey';
+import { FetchUtil } from '@/common/util/constant/queryKey';
 
 const submitLetter = async (
   args: Database['public']['Functions']['submit_letter']['Args'],
@@ -19,9 +19,11 @@ export const useSubmitLetter = (gameId: string) => {
     mutationFn: ({ gameId, letter }: { letter: string; gameId: string }) =>
       submitLetter({ p_game_id: gameId, p_letter: letter }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.GAME_LIST] });
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEY.GAME_DATA, gameId],
+        queryKey: [FetchUtil.QUERY_KEY.GAME_LIST],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [FetchUtil.QUERY_KEY.GAME_DATA, gameId],
       });
 
       toast.success('Letter submitted');
