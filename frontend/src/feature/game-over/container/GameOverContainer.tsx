@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import { useCanGoBack, useRouter } from '@tanstack/react-router';
 import { ArrowLeft, Award, Medal, PartyPopper, Trophy } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -13,13 +12,13 @@ export function GameOverContainer({ gameData }: Props) {
   const router = useRouter();
   const canGoBack = useCanGoBack();
 
-  const goBack = useCallback(() => {
+  const goBack = () => {
     if (canGoBack) {
       router.history.back();
     } else {
       router.navigate({ to: '/' });
     }
-  }, [canGoBack, router]);
+  };
 
   return (
     <div className="flex flex-col flex-1 w-full max-w-7xl mx-auto">

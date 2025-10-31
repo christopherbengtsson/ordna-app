@@ -9,7 +9,6 @@ import {
 import { Badge } from '@/components/ui/badge';
 import type { Game } from '../model/Game';
 import { GameCardUtil } from '../util/GameCardUtil';
-import { useMemo } from 'react';
 
 interface Props {
   userId: string | undefined;
@@ -18,10 +17,9 @@ interface Props {
 }
 
 export function GameCardCard({ userId, game, onGameClick }: Props) {
-  const timeRemaining = useMemo(
-    () => (game.deadline ? GameCardUtil.getTimeRemaining(game.deadline) : ''),
-    [game.deadline],
-  );
+  const timeRemaining = game.deadline
+    ? GameCardUtil.getTimeRemaining(game.deadline)
+    : '';
 
   return (
     <Card

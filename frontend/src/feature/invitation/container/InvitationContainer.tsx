@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'sonner';
 import type { AuthError } from '@supabase/supabase-js';
 import { useNavigate } from '@tanstack/react-router';
@@ -27,13 +27,20 @@ export function InvitationContainer({ inviteCode }: Props) {
   const { profile } = useProfile(user?.id);
   const { acceptInvite, isAccepting } = useInitiation();
 
-  const [nickname, setNickname] = useState(profile?.nickname ?? '');
+  const [nickname, setNickname] = useState('');
+  const [userHasEdited, setUserHasEdited] = useState(false);
 
-  useEffect(() => {
-    if (profile?.nickname && !nickname) {
-      setNickname(profile.nickname);
-    }
-  }, [nickname, profile?.nickname]);
+  // Derive the displayed value - this is just calculation during render
+  const displayNickname = userHasEdited
+    ? nickname
+    : profile?.nickname && profile.nickname !== 'Anonymous'
+      ? profile.nickname
+      : nickname;
+
+  const handleNicknameOnChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+    setUserHasEdited(true);
+    setNickname(ev.target.value.trim());
+  };
 
   const onInviteAccepted = (gameId: string, autoStarted: boolean) => {
     if (autoStarted) {
@@ -55,7 +62,7 @@ export function InvitationContainer({ inviteCode }: Props) {
     if (!isAuthenticated) {
       try {
         await signInAnonymously(
-          nickname.length > 0 ? nickname : undefined,
+          displayNickname.length > 0 ? displayNickname : undefined,
           true,
         );
       } catch (error) {
@@ -71,7 +78,7 @@ export function InvitationContainer({ inviteCode }: Props) {
     acceptInvite(
       {
         p_invite_token: inviteCode,
-        p_nickname: nickname,
+        p_nickname: displayNickname,
       },
       {
         onSuccess: ({ game_id, auto_started }) => {
@@ -101,8 +108,8 @@ export function InvitationContainer({ inviteCode }: Props) {
               <Label htmlFor="nickname">Your Name</Label>
               <Input
                 id="nickname"
-                value={nickname}
-                onChange={(e) => setNickname(e.target.value.trim())}
+                value={displayNickname}
+                onChange={handleNicknameOnChange}
                 placeholder="Enter nickname"
                 maxLength={20}
                 disabled={isAccepting}

@@ -16,7 +16,7 @@ const getGameData = async (gameId: string): Promise<GameData> => {
 };
 
 export const useGameData = (gameId: string, poll = false) => {
-  const { data, isPending, error } = useQuery({
+  const { data, isPending, isFetching, error } = useQuery({
     queryFn: () => getGameData(gameId),
     queryKey: [FetchUtil.QUERY_KEY.GAME_DATA, gameId],
     refetchInterval: poll ? POLL_INTERVAL : false,
@@ -25,6 +25,7 @@ export const useGameData = (gameId: string, poll = false) => {
   return {
     gameData: data,
     isLoading: isPending,
+    isUpdating: isFetching,
     error,
   };
 };

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { supabaseClient } from '@/lib/supabase/client/supabaseClient';
@@ -43,13 +43,6 @@ export const useTurnTimeout = (gameId: string) => {
     },
   });
 
-  const handleTimeout = useCallback(() => {
-    setTimeLeft("Time's up!");
-    setTurnDeadline(null);
-
-    mutate(gameId);
-  }, [gameId, mutate]);
-
   useEffect(() => {
     if (!turnDeadline) return;
 
@@ -61,7 +54,10 @@ export const useTurnTimeout = (gameId: string) => {
 
       if (distance < 0) {
         clearInterval(interval);
-        handleTimeout();
+        setTimeLeft("Time's up!");
+        setTurnDeadline(null);
+
+        mutate(gameId);
         return;
       }
 
@@ -82,7 +78,7 @@ export const useTurnTimeout = (gameId: string) => {
     interval = setInterval(updateTimer, 1000);
 
     return () => clearInterval(interval);
-  }, [handleTimeout, turnDeadline]);
+  }, [gameId, mutate, turnDeadline]);
 
   return {
     setTurnDeadline,

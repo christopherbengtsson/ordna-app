@@ -17,6 +17,7 @@ export const useSequenceAnimation = (
     if (!animating || currentLetterIndex < 0) return;
 
     if (currentLetterIndex >= currentSequence.length) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setAnimating(false);
       setIsExiting(false);
       // Start timer after animation completes

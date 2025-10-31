@@ -13,10 +13,10 @@ export function GameOverPage() {
   useNavigateOnError(error, 'Could not find game');
 
   useEffect(() => {
-    if (gameData && gameData.status !== 'completed') {
+    if (!isLoading && gameData && gameData.status !== 'completed') {
       navigate({ to: '/', replace: true });
     }
-  }, [gameData, navigate]);
+  }, [gameData, isLoading, navigate]);
 
   if (isLoading || !gameData) {
     return <LoadingGameOver />;

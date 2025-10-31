@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { Gamepad2, Plus } from 'lucide-react';
 import { useAuth } from '@/lib/supabase/hooks/useAuth';
 import { Button } from '@/components/ui/button';
@@ -15,16 +14,13 @@ export function GameListPage() {
   const { games, isLoading, error } = useGameList();
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
-  const noGames = useMemo(
-    () =>
-      !games ||
-      games.currentTurn.length +
-        games.pending.length +
-        games.waiting.length +
-        games.finished.length ===
-        0,
-    [games],
-  );
+  const noGames =
+    !games ||
+    games.currentTurn.length +
+      games.pending.length +
+      games.waiting.length +
+      games.finished.length ===
+      0;
 
   if (isLoading) {
     return <LoadingGameList />;

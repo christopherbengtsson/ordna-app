@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { useNavigate, useCanGoBack, useRouter } from '@tanstack/react-router';
 import { ArrowLeft, Check, Copy } from 'lucide-react';
 import { toast } from 'sonner';
@@ -36,13 +36,13 @@ export function LobbyContainer({ lobbyData, userId }: Props) {
   const inviteUrl = `${window.location.origin}/invitation?inviteCode=${lobbyData.inviteCode}`;
   const [copied, setCopied] = useState(false);
 
-  const goBack = useCallback(() => {
+  const goBack = () => {
     if (canGoBack) {
       router.history.back();
     } else {
       router.navigate({ to: '/' });
     }
-  }, [canGoBack, router]);
+  };
 
   const handleCopyInvite = () => {
     if (!lobbyData.inviteCode) return;
@@ -104,7 +104,11 @@ export function LobbyContainer({ lobbyData, userId }: Props) {
               <CardContent>
                 <div className="flex gap-2">
                   <Input
-                    value={lobbyData.inviteCode ? inviteUrl : 'Loading...'}
+                    value={
+                      lobbyData.inviteCode
+                        ? inviteUrl
+                        : 'Invite code invalidated'
+                    }
                     readOnly
                     className="flex-1 min-h-11"
                   />

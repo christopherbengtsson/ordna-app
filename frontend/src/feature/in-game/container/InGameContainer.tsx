@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Trophy } from 'lucide-react';
+import { useCanGoBack, useRouter } from '@tanstack/react-router';
+import { ArrowLeft, Trophy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import type { GameData } from '../model/GameData';
@@ -21,6 +22,8 @@ interface Props {
 
 export function InGameContainer({ gameData }: Props) {
   const [showScoreboard, setShowScoreboard] = useState(false);
+  const router = useRouter();
+  const canGoBack = useCanGoBack();
 
   const { submitLetter, isSubmittingLetter } = useSubmitLetter(gameData.gameId);
   const { callWord, isCallingWord } = useCallWord(gameData.gameId);
@@ -48,6 +51,14 @@ export function InGameContainer({ gameData }: Props) {
     currentLetterIndex,
     setCurrentLetterIndex,
   } = useSequenceAnimation(currentSequence, setTurnDeadline);
+
+  const goBack = () => {
+    if (canGoBack) {
+      router.history.back();
+    } else {
+      router.navigate({ to: '/' });
+    }
+  };
 
   const startTurn = () => {
     setAnimating(true);
@@ -126,6 +137,17 @@ export function InGameContainer({ gameData }: Props) {
         {/* Main Game Area */}
         <div className="flex flex-col w-full">
           <Card className="flex-1 w-full p-4 md:p-6 shadow-card border-border/50">
+            {!animating && !timeoutStarted && (
+              <Button
+                variant="ghost"
+                onClick={goBack}
+                className="gap-2 self-start mb-4 md:mb-6"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                Back to Games
+              </Button>
+            )}
+
             {/* Centered Content Area */}
             <div className="flex-1 flex flex-col justify-center">
               <div className="w-full max-w-2xl mx-auto space-y-4 md:space-y-6">
@@ -148,6 +170,10 @@ export function InGameContainer({ gameData }: Props) {
                     <Button
                       onClick={startTurn}
                       className="min-h-11 md:min-h-12 px-6"
+                      disabled={
+                        !gameData.isCurrentPlayer ||
+                        gameData.status !== 'active'
+                      }
                     >
                       {isBluffResolution ? 'Resolve Bluff' : 'Start Turn'}
                     </Button>

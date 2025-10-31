@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import { useCanGoBack, useRouter } from '@tanstack/react-router';
 import { ArrowLeft, Clock, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -18,13 +17,13 @@ export function WaitingRoomContainer({ gameData }: Props) {
   const router = useRouter();
   const canGoBack = useCanGoBack();
 
-  const goBack = useCallback(() => {
+  const goBack = () => {
     if (canGoBack) {
       router.history.back();
     } else {
       router.navigate({ to: '/' });
     }
-  }, [canGoBack, router]);
+  };
 
   return (
     <div className="flex flex-col flex-1 w-full max-w-7xl mx-auto">

@@ -15,14 +15,16 @@ const fetchLobby = async (args: LobbyDataIn): Promise<Lobby> => {
 };
 
 export const useLobby = (gameId: string) => {
-  const { data, error, isPending } = useQuery({
+  const { data, error, isPending, isFetching } = useQuery({
     queryFn: () => fetchLobby({ p_game_id: gameId }),
     queryKey: [FetchUtil.QUERY_KEY.GAME_LOBBY, gameId],
+    refetchInterval: FetchUtil.DEFAULT_POLL_INTERVAL,
   });
 
   return {
     lobbyData: data,
     error,
-    isFetchingLobbyData: isPending,
+    isLoading: isPending,
+    isUpdating: isFetching,
   };
 };

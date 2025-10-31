@@ -1,26 +1,43 @@
 import { useEffect } from 'react';
 import { useAuth } from '@/lib/supabase/hooks/useAuth';
 import { Route } from '@/routes/_authenticated/lobby.$gameId';
+import { useNavigateOnError } from '@/common/hooks/useNavigateOnError';
 import { useLobby } from '../hooks/useLobby';
 import { LoadingLobby } from '../component/LoadingLobby';
 import { LobbyContainer } from '../container/LobbyContainer';
-import { useNavigateOnError } from '../../../common/hooks/useNavigateOnError';
 
 export function LobbyPage() {
   const { user } = useAuth();
   const { gameId } = Route.useParams();
   const navigate = Route.useNavigate();
-  const { lobbyData, isFetchingLobbyData, error } = useLobby(gameId);
+  const { lobbyData, isLoading, isUpdating, error } = useLobby(gameId);
 
   useNavigateOnError(error, 'Could not find lobby');
 
   useEffect(() => {
-    if (lobbyData && !lobbyData.inviteCode?.length) {
-      navigate({ to: '/' });
-    }
-  }, [lobbyData, navigate]);
+    if (isLoading || isUpdating) return;
 
-  if (isFetchingLobbyData || !lobbyData) {
+    const hasInviteCode = !!lobbyData?.inviteCode?.length;
+
+    if (!hasInviteCode && lobbyData?.hostPlayerId === user?.id) {
+      navigate({ to: '/game/$gameId', params: { gameId }, replace: true });
+      return;
+    }
+
+    if (!hasInviteCode) {
+      navigate({ to: '/', replace: true });
+    }
+  }, [
+    gameId,
+    isLoading,
+    isUpdating,
+    lobbyData?.hostPlayerId,
+    lobbyData?.inviteCode?.length,
+    navigate,
+    user?.id,
+  ]);
+
+  if (isLoading || !lobbyData) {
     return <LoadingLobby />;
   }
 

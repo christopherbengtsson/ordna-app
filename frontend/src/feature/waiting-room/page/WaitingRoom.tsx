@@ -8,15 +8,26 @@ import { WaitingRoomContainer } from '../container/WaitingRoomContainer';
 export function WaitingRoomPage() {
   const { gameId } = Route.useParams();
   const navigate = Route.useNavigate();
-  const { gameData, isLoading, error } = useGameData(gameId, true);
+  const { gameData, isLoading, isUpdating, error } = useGameData(gameId, true);
 
   useNavigateOnError(error, 'Could not find game');
 
   useEffect(() => {
-    if (gameData?.isCurrentPlayer === true) {
-      navigate({ to: '/game/$gameId', params: { gameId } });
+    if (isLoading || isUpdating) return;
+
+    if (gameData?.status === 'active' && gameData?.isCurrentPlayer === true) {
+      navigate({ to: '/game/$gameId', params: { gameId }, replace: true });
+    } else if (gameData?.status === 'completed') {
+      navigate({ to: '/game-over/$gameId', params: { gameId }, replace: true });
     }
-  }, [gameData?.isCurrentPlayer, gameId, navigate]);
+  }, [
+    gameData?.isCurrentPlayer,
+    gameData?.status,
+    gameId,
+    isLoading,
+    isUpdating,
+    navigate,
+  ]);
 
   if (isLoading || !gameData) {
     return <LoadingWaitingRoom />;
