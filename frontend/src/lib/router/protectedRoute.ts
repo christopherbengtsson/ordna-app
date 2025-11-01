@@ -49,6 +49,7 @@ export async function protectedRoute({
 
   // Not authenticated - automatically sign in anonymously for seamless UX
   try {
+    console.debug('Creating user from protectedRoute');
     const { data, error } = await supabase.auth.signInAnonymously();
 
     if (error) throw error;

@@ -15,6 +15,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // Memoized sign-in function
   const signInAnonymously = useCallback(
     async (nickname?: string, skipLoading?: boolean) => {
+      console.debug('Creating user from authProvider');
       if (!skipLoading) {
         setIsLoading(true);
       }
