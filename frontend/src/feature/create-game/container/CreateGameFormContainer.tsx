@@ -144,7 +144,7 @@ export function CreateGameFormContainer({ onGameCreated }: Props) {
             </div>
 
             <div className="grid gap-2">
-              <Label htmlFor="maxMarks">Number of rounds</Label>
+              <Label htmlFor="maxMarks">Max number of marks</Label>
               <Input
                 id="maxMarks"
                 type="number"
