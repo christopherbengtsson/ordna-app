@@ -456,6 +456,19 @@ export type Database = {
           winner_id: string;
         }[];
       };
+      get_game_history: {
+        Args: { p_game_id: string };
+        Returns: {
+          completed_at: string;
+          moves: Json;
+          player_with_mark: string;
+          player_with_mark_nickname: string;
+          resolution_type: Database['public']['Enums']['resolution_type'];
+          round_id: string;
+          round_number: number;
+          started_at: string;
+        }[];
+      };
       get_games: {
         Args: { p_limit?: number; p_offset?: number };
         Returns: {
