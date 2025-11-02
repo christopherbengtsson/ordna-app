@@ -5,15 +5,23 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Scoreboard } from '../../in-game/component/Scoreboard';
 import type { GameData } from '../../in-game/model/GameData';
 import type { GamePlayer } from '../../in-game/model/GamePlayer';
+import type { GameHistory } from '../../game-history/model/GameHistory';
+import { GameHistoryContainer } from '../../game-history/container/GameHistoryContainer';
 
 interface Props {
   gameData: GameData;
+  history: GameHistory | undefined;
+  isHistoryLoading: boolean;
 }
 
 const currentPlayerNickname = (playerId: string, players: GamePlayer[]) =>
   players.find(({ id }) => id === playerId)?.nickname ?? 'Anonymous';
 
-export function WaitingRoomContainer({ gameData }: Props) {
+export function WaitingRoomContainer({
+  gameData,
+  history,
+  isHistoryLoading,
+}: Props) {
   const router = useRouter();
   const canGoBack = useCanGoBack();
 
@@ -79,6 +87,12 @@ export function WaitingRoomContainer({ gameData }: Props) {
               maxRounds={gameData.settings.marksToEliminate}
               players={gameData.players}
               activePlayerId={gameData.currentPlayerId}
+            />
+
+            <GameHistoryContainer
+              gameId={gameData.gameId}
+              history={history}
+              isLoading={isHistoryLoading}
             />
           </div>
         </div>

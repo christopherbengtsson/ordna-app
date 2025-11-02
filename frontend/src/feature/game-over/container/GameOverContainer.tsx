@@ -3,12 +3,20 @@ import { ArrowLeft, Award, Medal, PartyPopper, Trophy } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import type { GameData } from '../../in-game/model/GameData';
+import type { GameHistory } from '../../game-history/model/GameHistory';
+import { GameHistoryContainer } from '../../game-history/container/GameHistoryContainer';
 
 interface Props {
   gameData: GameData;
+  history: GameHistory | undefined;
+  isHistoryLoading: boolean;
 }
 
-export function GameOverContainer({ gameData }: Props) {
+export function GameOverContainer({
+  gameData,
+  history,
+  isHistoryLoading,
+}: Props) {
   const router = useRouter();
   const canGoBack = useCanGoBack();
 
@@ -105,6 +113,12 @@ export function GameOverContainer({ gameData }: Props) {
                 </div>
               </CardContent>
             </Card>
+
+            <GameHistoryContainer
+              gameId={gameData.gameId}
+              history={history}
+              isLoading={isHistoryLoading}
+            />
           </div>
         </div>
       </Card>

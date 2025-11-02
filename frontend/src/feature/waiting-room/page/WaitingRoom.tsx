@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Route } from '@/routes/_authenticated/waiting-room.$gameId';
 import { useNavigateOnError } from '@/common/hooks/useNavigateOnError';
 import { useGameData } from '../../in-game/hooks/useGameData';
+import { useGameHistory } from '../../game-history/hooks/useGameHistory';
 import { LoadingWaitingRoom } from '../component/LoadingWaitingRoom';
 import { WaitingRoomContainer } from '../container/WaitingRoomContainer';
 
@@ -9,6 +10,7 @@ export function WaitingRoomPage() {
   const { gameId } = Route.useParams();
   const navigate = Route.useNavigate();
   const { gameData, isLoading, isUpdating, error } = useGameData(gameId, true);
+  const { history, isLoading: isHistoryLoading } = useGameHistory(gameId);
 
   useNavigateOnError(error, 'Could not find game');
 
@@ -33,5 +35,11 @@ export function WaitingRoomPage() {
     return <LoadingWaitingRoom />;
   }
 
-  return <WaitingRoomContainer gameData={gameData} />;
+  return (
+    <WaitingRoomContainer
+      gameData={gameData}
+      history={history}
+      isHistoryLoading={isHistoryLoading}
+    />
+  );
 }
