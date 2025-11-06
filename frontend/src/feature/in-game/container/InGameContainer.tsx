@@ -67,6 +67,12 @@ export function InGameContainer({ gameData }: Props) {
     setCurrentLetterIndex(0);
   };
 
+  const replaySequence = () => {
+    // TODO: Subtract timeout
+    setCurrentLetterIndex(0);
+    setAnimating(true);
+  };
+
   const handleResolveBluff = (word: string) => {
     resolveBluff({
       p_game_id: gameData.gameId,
@@ -151,7 +157,9 @@ export function InGameContainer({ gameData }: Props) {
             <div className="flex-1 flex flex-col justify-center">
               <div className="w-full max-w-2xl mx-auto space-y-4 md:space-y-6">
                 <div className="text-center">
-                  {timeoutStarted && <TurnTimer timeLeft={timeLeft} />}
+                  {timeoutStarted && !animating && (
+                    <TurnTimer timeLeft={timeLeft} />
+                  )}
                 </div>
 
                 <SequenceDisplay
@@ -162,6 +170,7 @@ export function InGameContainer({ gameData }: Props) {
                   isExiting={isExiting}
                   isLoading={isLoading}
                   submitValue={handleInputSubmit}
+                  replaySequence={replaySequence}
                 />
 
                 {currentLetterIndex < 0 && (

@@ -5,6 +5,7 @@ import { GameActionService } from '../service/GameActionService';
 export const useTurnTimeout = (gameId: string) => {
   const [turnDeadline, setTurnDeadline] = useState<Date | null>(null);
   const [timeLeft, setTimeLeft] = useState('');
+  const [intervalMs, setIntervalMs] = useState(1000);
 
   const timeoutStarted = !!timeLeft.length;
 
@@ -45,13 +46,14 @@ export const useTurnTimeout = (gameId: string) => {
     };
 
     updateTimer();
-    interval = setInterval(updateTimer, 1000);
+    interval = setInterval(updateTimer, intervalMs);
 
     return () => clearInterval(interval);
-  }, [gameId, mutate, turnDeadline]);
+  }, [gameId, intervalMs, mutate, turnDeadline]);
 
   return {
     setTurnDeadline,
+    setIntervalMs,
 
     timeLeft,
     timeoutStarted,

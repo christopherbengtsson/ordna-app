@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import { Input } from '@/components/ui/input';
+import { RotateCcw, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Send } from 'lucide-react';
+import { Input } from '@/components/ui/input';
 
 interface Props {
   sequence: string[];
@@ -11,6 +11,7 @@ interface Props {
   isLoading: boolean;
   submitValue: (value: string) => void;
   isBluffResolution: boolean;
+  replaySequence: VoidFunction;
 }
 
 export function SequenceDisplay({
@@ -21,6 +22,7 @@ export function SequenceDisplay({
   isLoading,
   submitValue,
   isBluffResolution,
+  replaySequence,
 }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputValue, setInputValue] = useState('');
@@ -109,10 +111,19 @@ export function SequenceDisplay({
                 Enter the complete word starting with the sequence above
               </p>
             ) : (
-              <p className="text-sm text-muted-foreground">
-                Current sequence has {sequence.length}{' '}
-                {sequence.length === 1 ? 'letter' : 'letters'}
-              </p>
+              <>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Current sequence has {sequence.length}{' '}
+                  {sequence.length === 1 ? 'letter' : 'letters'}
+                </p>
+
+                {sequence.length > 0 && (
+                  <Button variant="link" onClick={replaySequence}>
+                    <RotateCcw />
+                    Replay {sequence.length === 1 ? 'letter' : 'letters'}
+                  </Button>
+                )}
+              </>
             )}
           </div>
           <form onSubmit={handleSubmit} className="flex flex-col gap-4 ">
