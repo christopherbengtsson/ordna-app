@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Trophy, Skull } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import type { GamePlayer } from '../model/GamePlayer';
 
 interface Props {
@@ -9,12 +10,14 @@ interface Props {
 }
 
 export function Scoreboard({ players, activePlayerId, maxRounds }: Props) {
+  const { t } = useTranslation('gameplay');
+
   return (
     <Card className="shadow-card border-border/50 min-w-[250px]">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Trophy className="w-5 h-5 text-primary" />
-          Scoreboard
+          {t('scoreboard.title')}
         </CardTitle>
       </CardHeader>
       <CardContent>

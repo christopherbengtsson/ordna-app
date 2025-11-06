@@ -1,4 +1,5 @@
 import { Award, Medal, PartyPopper, Trophy } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/lib/supabase/hooks/useAuth';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { GameData } from '../../in-game/model/GameData';
@@ -17,6 +18,7 @@ export function GameOverContainer({
   history,
   isHistoryLoading,
 }: Props) {
+  const { t } = useTranslation('results');
   const { user } = useAuth();
 
   return (
@@ -36,12 +38,12 @@ export function GameOverContainer({
 
                   <span>
                     {gameData.winnerId === user?.id
-                      ? 'You win!'
-                      : `${
-                          gameData?.players.find(
+                      ? t('gameOver.youWin')
+                      : t('gameOver.playerWon', {
+                          nickname: gameData?.players.find(
                             ({ isEliminated }) => !isEliminated,
-                          )?.nickname
-                        } won!`}
+                          )?.nickname,
+                        })}
                   </span>
 
                   <PartyPopper />
@@ -51,7 +53,7 @@ export function GameOverContainer({
 
             <Card className="shadow-card border-border/50">
               <CardHeader>
-                <CardTitle className="text-center">Results</CardTitle>
+                <CardTitle className="text-center">{t('gameOver.results')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
@@ -86,7 +88,7 @@ export function GameOverContainer({
                               {player.nickname}
                             </p>
                             <p className="text-sm text-muted-foreground">
-                              {player.marks} marks
+                              {t('gameOver.marks', { count: player.marks })}
                             </p>
                           </div>
                         </div>

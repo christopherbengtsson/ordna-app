@@ -1,0 +1,90 @@
+{
+  "create": {
+    "title": "Skapa nytt spel",
+    "description": "Ställ in dina spelinställningar och bjud in spelare",
+    "form": {
+      "nickname": "Ditt spelnamn",
+      "nicknamePlaceholder": "Ange ditt spelnamn",
+      "language": "Språk",
+      "languages": {
+        "sv": "Svenska",
+        "en": "Engelska"
+      },
+      "maxPlayers": "Maximalt antal spelare",
+      "minWordLength": "Minsta ordlängd",
+      "maxMarks": "Maximalt antal prickar",
+      "moreSettings": "Fler inställningar"
+    },
+    "actions": {
+      "creating": "Skapar...",
+      "create": "Skapa spel",
+      "cancel": "Avbryt"
+    }
+  },
+  "gameList": {
+    "title": "Orda",
+    "sections": {
+      "yourTurn": "Din tur",
+      "pending": "Inväntar",
+      "waiting": "Aktiva",
+      "finished": "Avslutade"
+    },
+    "status": {
+      "yourTurn": "Din tur",
+      "waiting": "Väntar på nästa spelare"
+    },
+    "badges": {
+      "waiting": "Väntar",
+      "pending": "Ej startad",
+      "win": "Vinst"
+    },
+    "actions": {
+      "newGame": "Nytt spel",
+      "enterInviteCode": "Ange spelkod...",
+      "join": "Gå med"
+    },
+    "empty": {
+      "title": "Inga spel",
+      "description": "Du har inga spel ännu. Skapa ett nytt eller gå med i ett med en spelkod.",
+      "action": "Skapa nytt spel",
+      "or": "eller"
+    },
+    "card": {
+      "gameNumber": "Spel #{{id}}",
+      "round": "Runda {{number}}",
+      "expired": "Utgånget",
+      "timeRemaining": "{{hours}}h {{minutes}}m",
+      "timeRemainingMinutes": "{{minutes}}m"
+    },
+    "moveTypes": {
+      "addLetter": "Ny bokstav",
+      "callWord": "Färdigt ord",
+      "callBluff": "Synad",
+      "resolveBluff": "Syning besvarad",
+      "fold": "Spelare la sig",
+      "timeout": "Spelare timade ut"
+    }
+  },
+  "lobby": {
+    "title": "Lobby",
+    "waiting": "Väntar på spelare...",
+    "invitePlayers": "Bjud in spelare",
+    "shareLink": "Dela denna länk med dina vänner",
+    "playersJoined": "{{count}} spelare har gått med",
+    "players": "Spelare",
+    "host": "Värd",
+    "startGame": "Starta spel"
+  },
+  "invitation": {
+    "title": "Gå med i Orda",
+    "invited": "Du har blivit inbjuden att gå med i ett spel!",
+    "form": {
+      "nickname": "Ditt spelnamn",
+      "nicknamePlaceholder": "Ange spelnamn"
+    },
+    "actions": {
+      "joining": "Går med...",
+      "joinGame": "Gå med i spel"
+    }
+  }
+}

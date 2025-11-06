@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useMediaQuery } from '@/common/hooks/useMediaQuery';
 import { Button } from '@/components/ui/button';
 import {
@@ -34,6 +35,7 @@ export function TurnResultDrawer({
   turnResult,
   userId,
 }: Props) {
+  const { t } = useTranslation(['results', 'common']);
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   const isUserMarked = turnResult.markedPlayerId === userId;
@@ -47,6 +49,7 @@ export function TurnResultDrawer({
   const title = TurnResultContentUtil.getTurnTitle({
     moveType: turnResult.moveType,
     resolutionType: turnResult.resolutionType,
+    t,
   });
 
   const description = TurnResultContentUtil.getTurnDescription({
@@ -56,6 +59,7 @@ export function TurnResultDrawer({
     wasEliminated,
     markedPlayerNickname: turnResult.markedPlayerNickname,
     startsNextRoundPlayerNickname: turnResult.startsNextRoundPlayerNickname,
+    t,
   });
 
   if (isDesktop) {
@@ -74,9 +78,9 @@ export function TurnResultDrawer({
             )}
           </DialogHeader>
 
-          <DescriptionContent turnResult={turnResult} userId={userId} />
+          <DescriptionContent turnResult={turnResult} userId={userId} t={t} />
           <div className="flex justify-center pt-2">
-            <Button onClick={() => onOpenChange(false)}>Close</Button>
+            <Button onClick={() => onOpenChange(false)}>{t('actions.close', { ns: 'common' })}</Button>
           </div>
         </DialogContent>
       </Dialog>
@@ -99,12 +103,12 @@ export function TurnResultDrawer({
         </DrawerHeader>
 
         <div className="px-4">
-          <DescriptionContent turnResult={turnResult} userId={userId} />
+          <DescriptionContent turnResult={turnResult} userId={userId} t={t} />
         </div>
 
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>
-            <Button>Close</Button>
+            <Button>{t('actions.close', { ns: 'common' })}</Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>

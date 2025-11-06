@@ -1,0 +1,100 @@
+{
+  "moveResult": {
+    "titles": {
+      "letterAdded": "Ny bokstav",
+      "wordValid": "Giltigt ord",
+      "wordInvalid": "Ogiltigt ord",
+      "bluffCalled": "Synat",
+      "bluffConfirmed": "Syning besvarad",
+      "folded": "Gav upp",
+      "timeExpired": "Tiden gick ut"
+    },
+    "descriptions": {
+      "callWord": {
+        "valid": {
+          "markedOther": "{{nickname}} fick en prick för att ha avslutat ett ord.",
+          "eliminatedOther": "{{nickname}} är ute för att ha avslutat ett ord.",
+          "markedYou": "Du hävdade avslutat ord. Föregående spelare fick en prick.",
+          "eliminatedYou": "Du hävdade att det var ett avslutat ord. Föregående spelare är ute."
+        },
+        "invalid": {
+          "marked": "Du hävdade ett avslutat ord och därmed fick en prick.",
+          "eliminated": "Du hävdade ett avslutat ord."
+        }
+      },
+      "callBluff": {
+        "waiting": "Du synade föregående spelare. Inväntar deras svar."
+      },
+      "resolveBluff": {
+        "bluffFalse": {
+          "markedYou": "Din syning gick inte hem och du fick därmed en prick.",
+          "eliminatedYou": "Din syning gick inte hem. Ordet var giltigt.",
+          "markedOther": "{{nickname}}s syning gick inte hem och fick därmed en prick.",
+          "eliminatedOther": "{{nickname}} eliminerades efter att ha synat spelare."
+        },
+        "bluffTrue": {
+          "markedYou": "Du kunde inte avsluta ett giltigt ord och fick därmed en prick.",
+          "eliminatedYou": "Du kunde inte avsluta ett giltigt ord efter att ha blivit synad.",
+          "markedOther": "{{nickname}} kunde inte avsluta ett giltigt ord och fick därmed en prick.",
+          "eliminatedOther": "{{nickname}} kunde inte avsluta ett ord."
+        }
+      },
+      "addLetter": {
+        "continues": "Bokstavsföljden fortsätter.",
+        "nextRound": "{{nickname}} startar nästa runda."
+      },
+      "fold": {
+        "marked": "Du la dig och fick därmed en prick.",
+        "eliminated": "Du la dig och är nu ute."
+      },
+      "timeout": {
+        "marked": "Du timade ut och fick därmed en prick.",
+        "eliminated": "Du timade ut och är nu ute."
+      }
+    },
+    "badges": {
+      "eliminated": "{{nickname}} ute!",
+      "eliminatedYou": "Du är ute!"
+    }
+  },
+  "gameOver": {
+    "title": "{{nickname}} vinner!",
+    "youWin": "Du vinner!",
+    "playerWon": "{{nickname}} vann!",
+    "results": "Resultat",
+    "marks": "{{count}} prickar",
+    "position": "#{{position}}"
+  },
+  "history": {
+    "title": "Rundor",
+    "round": "Runda {{number}}",
+    "action": "{{count}} drag",
+    "action_plural": "{{count}} drag",
+    "outcome": "Utfall:",
+    "receivedMark": "fick en prick",
+    "moveTypes": {
+      "addLetter": "{{nickname}} la bokstav {{letter}}",
+      "callWord": "{{nickname}} hävdade avslutat ord {{word}}",
+      "callBluff": "{{nickname}} synade",
+      "resolveBluff": "{{nickname}} besvarade syning {{word}}",
+      "fold": "{{nickname}} la sig",
+      "timeout": "{{nickname}} timade ut"
+    },
+    "moveTypeLabels": {
+      "addLetter": "la bokstav",
+      "callWord": "hävdade avslutat ord",
+      "callBluff": "synade",
+      "resolveBluff": "besvarade syning",
+      "fold": "la sig",
+      "timeout": "timade ut"
+    },
+    "resolutions": {
+      "wordValid": "Giltigt ord",
+      "wordInvalid": "Ogiltigt ord",
+      "bluffFalse": "Felaktigt syning",
+      "bluffTrue": "Korrekt syning",
+      "fold": "Spelaren la sig",
+      "timeout": "Spelaren timade ut"
+    }
+  }
+}

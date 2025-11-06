@@ -1,4 +1,5 @@
 import { Frown } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import {
   Empty,
   EmptyContent,
@@ -10,6 +11,8 @@ import {
 import { Card } from '@/components/ui/card';
 
 export function GameListError() {
+  const { t } = useTranslation('validation');
+
   return (
     <div className="container mx-auto max-w-4xl">
       <Card className="shadow-card border-border/50">
@@ -18,9 +21,9 @@ export function GameListError() {
             <EmptyMedia variant="icon">
               <Frown />
             </EmptyMedia>
-            <EmptyTitle>Error</EmptyTitle>
+            <EmptyTitle>{t('errors.notFound.title')}</EmptyTitle>
             <EmptyDescription>
-              Unable to load any games, try again by refetching the page.
+              {t('errors.loadingError')}
             </EmptyDescription>
           </EmptyHeader>
           <EmptyContent></EmptyContent>

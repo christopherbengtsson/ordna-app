@@ -6,6 +6,7 @@ import {
   Flag,
   Clock,
 } from 'lucide-react';
+import type { TFunction } from 'i18next';
 import type { TurnResult } from '../model/TurnResult';
 
 const getTurnIcon = ({
@@ -38,30 +39,34 @@ const getTurnIcon = ({
 const getTurnTitle = ({
   moveType,
   resolutionType,
+  t,
 }: {
   moveType: TurnResult['moveType'];
   resolutionType: TurnResult['resolutionType'];
+  t: TFunction<'results'>;
 }): string => {
   switch (moveType) {
     case 'add_letter':
-      return 'Letter added';
+      return t('moveResult.titles.letterAdded');
 
     case 'call_word':
-      return resolutionType === 'word_valid' ? 'Word valid' : 'Word invalid';
+      return resolutionType === 'word_valid'
+        ? t('moveResult.titles.wordValid')
+        : t('moveResult.titles.wordInvalid');
 
     case 'resolve_bluff':
       return resolutionType === 'bluff_false'
-        ? 'Word valid'
-        : 'Bluff confirmed';
+        ? t('moveResult.titles.wordValid')
+        : t('moveResult.titles.bluffConfirmed');
 
     case 'call_bluff':
-      return 'Bluff called';
+      return t('moveResult.titles.bluffCalled');
 
     case 'fold':
-      return 'Folded';
+      return t('moveResult.titles.folded');
 
     case 'timeout':
-      return 'Time expired';
+      return t('moveResult.titles.timeExpired');
 
     default:
       return '';
@@ -75,6 +80,7 @@ const getTurnDescription = (props: {
   wasEliminated: boolean;
   markedPlayerNickname: string | undefined;
   startsNextRoundPlayerNickname: string | undefined;
+  t: TFunction<'results'>;
 }): string => {
   const {
     moveType,
@@ -83,6 +89,7 @@ const getTurnDescription = (props: {
     wasEliminated,
     markedPlayerNickname,
     startsNextRoundPlayerNickname,
+    t,
   } = props;
 
   switch (moveType) {
@@ -91,68 +98,80 @@ const getTurnDescription = (props: {
         // Word was valid - previous player got marked/eliminated
         if (wasEliminated) {
           return isUserMarked
-            ? 'You called a valid word. The previous player has been eliminated.'
-            : `${markedPlayerNickname} was eliminated for completing the word.`;
+            ? t('moveResult.descriptions.callWord.valid.eliminatedYou')
+            : t('moveResult.descriptions.callWord.valid.eliminatedOther', {
+                nickname: markedPlayerNickname,
+              });
         }
         return isUserMarked
-          ? 'You called a valid word. The previous player got a mark.'
-          : `${markedPlayerNickname} got a mark for completing the word.`;
+          ? t('moveResult.descriptions.callWord.valid.markedYou')
+          : t('moveResult.descriptions.callWord.valid.markedOther', {
+              nickname: markedPlayerNickname,
+            });
       } else {
         // Word was invalid - you got marked/eliminated
         if (wasEliminated) {
-          return 'You called an invalid word.';
+          return t('moveResult.descriptions.callWord.invalid.eliminated');
         }
-        return 'You called an invalid word and got a mark.';
+        return t('moveResult.descriptions.callWord.invalid.marked');
       }
     }
 
     case 'call_bluff':
-      return 'You called bluff on the previous player. Waiting for their response.';
+      return t('moveResult.descriptions.callBluff.waiting');
 
     case 'resolve_bluff': {
       if (resolutionType === 'bluff_false') {
         // Word was valid, bluff caller was wrong
         if (wasEliminated) {
           return isUserMarked
-            ? 'Your bluff call was incorrect. The word was valid.'
-            : `${markedPlayerNickname} was eliminated for an incorrect bluff call.`;
+            ? t('moveResult.descriptions.resolveBluff.bluffFalse.eliminatedYou')
+            : t('moveResult.descriptions.resolveBluff.bluffFalse.eliminatedOther', {
+                nickname: markedPlayerNickname,
+              });
         }
-        const markedName = isUserMarked ? 'You' : markedPlayerNickname;
         return isUserMarked
-          ? 'Your bluff call was incorrect and you got a mark.'
-          : `${markedName}'s bluff call was incorrect and got a mark.`;
+          ? t('moveResult.descriptions.resolveBluff.bluffFalse.markedYou')
+          : t('moveResult.descriptions.resolveBluff.bluffFalse.markedOther', {
+              nickname: markedPlayerNickname,
+            });
       } else {
         // Word was invalid, resolver was bluffing
         if (wasEliminated) {
           return isUserMarked
-            ? 'You were unable to complete the word after being challenged.'
-            : `${markedPlayerNickname} couldn't complete the word.`;
+            ? t('moveResult.descriptions.resolveBluff.bluffTrue.eliminatedYou')
+            : t('moveResult.descriptions.resolveBluff.bluffTrue.eliminatedOther', {
+                nickname: markedPlayerNickname,
+              });
         }
-        const markedName = isUserMarked ? 'You' : markedPlayerNickname;
         return isUserMarked
-          ? 'You were unable to complete the word and got a mark.'
-          : `${markedName} couldn't complete the word and got a mark.`;
+          ? t('moveResult.descriptions.resolveBluff.bluffTrue.markedYou')
+          : t('moveResult.descriptions.resolveBluff.bluffTrue.markedOther', {
+              nickname: markedPlayerNickname,
+            });
       }
     }
 
     case 'add_letter': {
       return startsNextRoundPlayerNickname
-        ? `${startsNextRoundPlayerNickname} starts the next round.`
-        : 'The sequence continues.';
+        ? t('moveResult.descriptions.addLetter.nextRound', {
+            nickname: startsNextRoundPlayerNickname,
+          })
+        : t('moveResult.descriptions.addLetter.continues');
     }
 
     case 'fold': {
       if (wasEliminated) {
-        return 'You folded and have been eliminated.';
+        return t('moveResult.descriptions.fold.eliminated');
       }
-      return 'You folded and got a mark.';
+      return t('moveResult.descriptions.fold.marked');
     }
 
     case 'timeout': {
       if (wasEliminated) {
-        return 'You ran out of time and have been eliminated.';
+        return t('moveResult.descriptions.timeout.eliminated');
       }
-      return 'You ran out of time and got a mark.';
+      return t('moveResult.descriptions.timeout.marked');
     }
 
     default:

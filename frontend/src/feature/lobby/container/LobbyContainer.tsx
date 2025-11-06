@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from '@tanstack/react-router';
+import { useTranslation } from 'react-i18next';
 import { Check, Copy } from 'lucide-react';
 import { toast } from 'sonner';
 import {
@@ -12,8 +13,6 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { useStartGame } from '../hooks/useStartGame';
-import type { Lobby } from '../model/Lobby';
 import {
   Accordion,
   AccordionContent,
@@ -22,6 +21,8 @@ import {
 } from '../../../components/ui/accordion';
 import { cn } from '../../../lib/utils';
 import { GoBackButton } from '../../../common/component/GoBackButton';
+import { useStartGame } from '../hooks/useStartGame';
+import type { Lobby } from '../model/Lobby';
 
 interface Props {
   lobbyData: Lobby;
@@ -29,6 +30,7 @@ interface Props {
 }
 
 export function LobbyContainer({ lobbyData, userId }: Props) {
+  const { t } = useTranslation(['game-setup', 'validation']);
   const navigate = useNavigate();
   const { startGame, isStarting } = useStartGame(lobbyData.id);
 
@@ -40,7 +42,7 @@ export function LobbyContainer({ lobbyData, userId }: Props) {
 
     navigator.clipboard.writeText(inviteUrl);
     setCopied(true);
-    toast('Invite link copied!', { duration: 5000 });
+    toast(t('toast.success.inviteCopied', { ns: 'validation' }), { duration: 5000 });
     setTimeout(() => setCopied(false), 5000);
   };
 
@@ -71,18 +73,18 @@ export function LobbyContainer({ lobbyData, userId }: Props) {
           <div className="w-full max-w-2xl mx-auto space-y-4 md:space-y-6">
             <div className="text-center space-y-2">
               <h1 className="text-3xl md:text-4xl text-primary font-bold bg-clip-text">
-                Game Lobby
+                {t('lobby.title')}
               </h1>
               <p className="text-sm md:text-base text-muted-foreground">
-                Waiting for players...
+                {t('lobby.waiting')}
               </p>
             </div>
 
             <Card className="shadow-card border-border/50">
               <CardHeader>
-                <CardTitle>Invite Players</CardTitle>
+                <CardTitle>{t('lobby.invitePlayers')}</CardTitle>
                 <CardDescription>
-                  Share this link with your friends
+                  {t('lobby.shareLink')}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -91,7 +93,7 @@ export function LobbyContainer({ lobbyData, userId }: Props) {
                     value={
                       lobbyData.inviteCode
                         ? inviteUrl
-                        : 'Invite code invalidated'
+                        : t('form.inviteCodeInvalidated', { ns: 'validation' })
                     }
                     readOnly
                     className="flex-1 min-h-11"
@@ -114,12 +116,12 @@ export function LobbyContainer({ lobbyData, userId }: Props) {
 
             <Card className="shadow-card border-border/50">
               <CardHeader>
-                <CardTitle>{lobbyData.players.length} players joined</CardTitle>
+                <CardTitle>{t('lobby.playersJoined', { count: lobbyData.players.length })}</CardTitle>
               </CardHeader>
               <CardContent>
                 <Accordion type="single" collapsible>
                   <AccordionItem value="item-1">
-                    <AccordionTrigger>Players</AccordionTrigger>
+                    <AccordionTrigger>{t('lobby.players')}</AccordionTrigger>
                     <AccordionContent className={cn('grid gap-4')}>
                       <div className="space-y-2">
                         {lobbyData.players?.map((player) => (
@@ -131,7 +133,7 @@ export function LobbyContainer({ lobbyData, userId }: Props) {
                               {player.nickname}
                             </span>
                             {player.isHost && (
-                              <Badge variant="default">Host</Badge>
+                              <Badge variant="default">{t('lobby.host')}</Badge>
                             )}
                           </div>
                         ))}
@@ -150,7 +152,7 @@ export function LobbyContainer({ lobbyData, userId }: Props) {
                   onClick={handleStartGame}
                   disabled={isStarting}
                 >
-                  Start Game
+                  {t('lobby.startGame')}
                 </Button>
               )}
           </div>

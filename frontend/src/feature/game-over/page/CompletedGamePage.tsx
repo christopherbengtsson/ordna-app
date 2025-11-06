@@ -1,5 +1,6 @@
 import { useRouterState } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Route } from '@/routes/_authenticated/game-over.$gameId';
 import { useAuth } from '@/lib/supabase/hooks/useAuth';
 import { useNavigateOnError } from '@/common/hooks/useNavigateOnError';
@@ -10,6 +11,7 @@ import { LoadingGameOver } from '../component/LoadingGameOver';
 import { GameOverContainer } from '../container/GameOverContainer';
 
 export function GameOverPage() {
+  const { t } = useTranslation('validation');
   const { gameId } = Route.useParams();
   const navigate = Route.useNavigate();
   const { user } = useAuth();
@@ -19,7 +21,7 @@ export function GameOverPage() {
 
   const [dismissed, setDismissed] = useState(false);
 
-  useNavigateOnError(error, 'Could not find game');
+  useNavigateOnError(error, t('toast.error.gameNotFound'));
 
   useEffect(() => {
     if (!isLoading && gameData && gameData.status !== 'completed') {

@@ -1,0 +1,100 @@
+{
+  "moveResult": {
+    "titles": {
+      "letterAdded": "Letter added",
+      "wordValid": "Word valid",
+      "wordInvalid": "Word invalid",
+      "bluffCalled": "Bluff called",
+      "bluffConfirmed": "Bluff confirmed",
+      "folded": "Folded",
+      "timeExpired": "Time expired"
+    },
+    "descriptions": {
+      "callWord": {
+        "valid": {
+          "markedOther": "{{nickname}} got a mark for completing a word.",
+          "eliminatedOther": "{{nickname}} was eliminated for completing a word.",
+          "markedYou": "You called a valid word. The previous player got a mark.",
+          "eliminatedYou": "You called a valid word. The previous player has been eliminated."
+        },
+        "invalid": {
+          "marked": "You called an invalid word and got a mark.",
+          "eliminated": "You called an invalid word."
+        }
+      },
+      "callBluff": {
+        "waiting": "You called bluff on the previous player. Waiting for their response."
+      },
+      "resolveBluff": {
+        "bluffFalse": {
+          "markedYou": "Your bluff call was incorrect and you got a mark.",
+          "eliminatedYou": "Your bluff call was incorrect. The word was valid.",
+          "markedOther": "{{nickname}}'s bluff call was incorrect and got a mark.",
+          "eliminatedOther": "{{nickname}} was eliminated for an incorrect bluff call."
+        },
+        "bluffTrue": {
+          "markedYou": "You were unable to complete the word and got a mark.",
+          "eliminatedYou": "You were unable to complete the word after being challenged.",
+          "markedOther": "{{nickname}} couldn't complete the word and got a mark.",
+          "eliminatedOther": "{{nickname}} couldn't complete the word."
+        }
+      },
+      "addLetter": {
+        "continues": "The sequence continues.",
+        "nextRound": "{{nickname}} starts the next round."
+      },
+      "fold": {
+        "marked": "You folded and got a mark.",
+        "eliminated": "You folded and have been eliminated."
+      },
+      "timeout": {
+        "marked": "You ran out of time and got a mark.",
+        "eliminated": "You ran out of time and have been eliminated."
+      }
+    },
+    "badges": {
+      "eliminated": "{{nickname}} eliminated!",
+      "eliminatedYou": "You were eliminated!"
+    }
+  },
+  "gameOver": {
+    "title": "{{nickname}} Wins!",
+    "youWin": "You win!",
+    "playerWon": "{{nickname}} won!",
+    "results": "Results",
+    "marks": "{{count}} marks",
+    "position": "#{{position}}"
+  },
+  "history": {
+    "title": "Round History",
+    "round": "Round {{number}}",
+    "action": "{{count}} action",
+    "action_plural": "{{count}} actions",
+    "outcome": "Outcome:",
+    "receivedMark": "received a mark",
+    "moveTypes": {
+      "addLetter": "{{nickname}} placed letter {{letter}}",
+      "callWord": "{{nickname}} called word {{word}}",
+      "callBluff": "{{nickname}} called BLUFF",
+      "resolveBluff": "{{nickname}} resolved bluff with word {{word}}",
+      "fold": "{{nickname}} folded",
+      "timeout": "{{nickname}} timed out"
+    },
+    "moveTypeLabels": {
+      "addLetter": "placed letter",
+      "callWord": "called word",
+      "callBluff": "called BLUFF",
+      "resolveBluff": "resolved bluff with word",
+      "fold": "folded",
+      "timeout": "timed out"
+    },
+    "resolutions": {
+      "wordValid": "Word was valid",
+      "wordInvalid": "Word was invalid",
+      "bluffFalse": "Bluff was incorrect",
+      "bluffTrue": "Bluff was correct",
+      "fold": "Player folded",
+      "timeout": "Player timed out"
+    }
+  }
+}

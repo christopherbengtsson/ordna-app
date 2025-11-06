@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/lib/supabase/hooks/useAuth';
 import { Route } from '@/routes/_authenticated/lobby.$gameId';
 import { useNavigateOnError } from '@/common/hooks/useNavigateOnError';
@@ -7,12 +8,13 @@ import { LoadingLobby } from '../component/LoadingLobby';
 import { LobbyContainer } from '../container/LobbyContainer';
 
 export function LobbyPage() {
+  const { t } = useTranslation('validation');
   const { user } = useAuth();
   const { gameId } = Route.useParams();
   const navigate = Route.useNavigate();
   const { lobbyData, isLoading, isUpdating, error } = useLobby(gameId);
 
-  useNavigateOnError(error, 'Could not find lobby');
+  useNavigateOnError(error, t('toast.error.lobbyNotFound'));
 
   useEffect(() => {
     if (isLoading || isUpdating) return;

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import type { AuthError } from '@supabase/supabase-js';
 import { useNavigate } from '@tanstack/react-router';
@@ -21,6 +22,7 @@ interface Props {
 }
 
 export function InvitationContainer({ inviteCode }: Props) {
+  const { t } = useTranslation(['game-setup', 'validation']);
   const navigate = useNavigate();
 
   const { user, isAuthenticated, signInAnonymously } = useAuth();
@@ -53,7 +55,7 @@ export function InvitationContainer({ inviteCode }: Props) {
       navigate({ to: '/lobby/$gameId', params: { gameId }, replace: true });
     }
 
-    toast.success('Successfully joined game!');
+    toast.success(t('toast.success.joinedGame', { ns: 'validation' }));
   };
 
   const handleJoinGame = async (e: React.FormEvent) => {
@@ -68,7 +70,7 @@ export function InvitationContainer({ inviteCode }: Props) {
       } catch (error) {
         toast.error(
           (error as AuthError).message ??
-            'Unknown Error, failed to sign in anonymously',
+            t('toast.error.signInFailed', { ns: 'validation' }),
         );
 
         return;
@@ -86,7 +88,7 @@ export function InvitationContainer({ inviteCode }: Props) {
         },
         onError: (error) => {
           toast.error(
-            error.message ?? 'Unknown Error, failed to join the game',
+            error.message ?? t('toast.error.joinGameFailed', { ns: 'validation' }),
           );
         },
       },
@@ -98,19 +100,19 @@ export function InvitationContainer({ inviteCode }: Props) {
       <Card className="w-full max-w-md shadow-card border-border/50">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl text-primary md:text-3xl bg-clip-text">
-            Join Ghost Bluff
+            {t('invitation.title')}
           </CardTitle>
-          <CardDescription>You've been invited to join a game!</CardDescription>
+          <CardDescription>{t('invitation.invited')}</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleJoinGame} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="nickname">Your Name</Label>
+              <Label htmlFor="nickname">{t('invitation.form.nickname')}</Label>
               <Input
                 id="nickname"
                 value={displayNickname}
                 onChange={handleNicknameOnChange}
-                placeholder="Enter nickname"
+                placeholder={t('invitation.form.nicknamePlaceholder')}
                 maxLength={20}
                 disabled={isAccepting}
                 className="min-h-11"
@@ -122,7 +124,7 @@ export function InvitationContainer({ inviteCode }: Props) {
               className="w-full min-h-11 md:min-h-12"
               disabled={isAccepting}
             >
-              {isAccepting ? 'Joining...' : 'Join Game'}
+              {isAccepting ? t('invitation.actions.joining') : t('invitation.actions.joinGame')}
             </Button>
           </form>
         </CardContent>

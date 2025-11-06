@@ -1,4 +1,5 @@
 import { AlertTriangle, CheckCircle, XCircle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 
 interface Props {
@@ -7,6 +8,8 @@ interface Props {
 }
 
 export function ActionButtons({ onAction, sequenceLength }: Props) {
+  const { t } = useTranslation('gameplay');
+
   return (
     <div className="grid grid-cols-3 gap-2 md:gap-3">
       <Button
@@ -15,7 +18,7 @@ export function ActionButtons({ onAction, sequenceLength }: Props) {
         variant="outline"
       >
         <AlertTriangle className="w-5 h-5 md:w-6 md:h-6" />
-        <span className="font-semibold text-xs md:text-sm">Call Bluff</span>
+        <span className="font-semibold text-xs md:text-sm">{t('actions.callBluff')}</span>
       </Button>
 
       <Button
@@ -25,7 +28,7 @@ export function ActionButtons({ onAction, sequenceLength }: Props) {
         variant="outline"
       >
         <XCircle className="w-5 h-5 md:w-6 md:h-6" />
-        <span className="font-semibold text-xs md:text-sm">Fold</span>
+        <span className="font-semibold text-xs md:text-sm">{t('actions.fold')}</span>
       </Button>
 
       <Button
@@ -34,7 +37,7 @@ export function ActionButtons({ onAction, sequenceLength }: Props) {
         variant="outline"
       >
         <CheckCircle className="w-5 h-5 md:w-6 md:h-6" />
-        <span className="font-semibold text-xs md:text-sm">Call Complete</span>
+        <span className="font-semibold text-xs md:text-sm">{t('actions.callComplete')}</span>
       </Button>
     </div>
   );

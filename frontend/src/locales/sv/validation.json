@@ -1,0 +1,35 @@
+{
+  "toast": {
+    "success": {
+      "gameCreated": "Spel skapat!",
+      "gameJoined": "Gått med i spel, inväntar värden",
+      "joinedGame": "Gick med i spelet!",
+      "inviteCopied": "Länk kopierad!"
+    },
+    "error": {
+      "createGameFailed": "Gick inte att skapa spel: {{message}}",
+      "loadGamesFailed": "Kunde inte ladda spel",
+      "loadGameFailed": "Kunde inte ladda spel",
+      "joinGameFailed": "Okänt fel, gick inte att gå med i spel",
+      "lobbyNotFound": "Kunde inte hitta lobby",
+      "gameNotFound": "Kunde inte hitta spel",
+      "signInFailed": "Okänt fel, gick inte att logga in",
+      "genericError": "Fel: {{message}}",
+      "unknownError": "Okänt fel"
+    }
+  },
+  "form": {
+    "fillAllFields": "Fyll i alla fält",
+    "invalidInviteCode": "Ogiltig spelkod",
+    "inviteCodeInvalidated": "Spelkod ogiltigförklarad"
+  },
+  "errors": {
+    "notFound": {
+      "title": "404",
+      "message": "Sidan hittades inte"
+    },
+    "loadingError": "Kunde inte ladda några spel, prova att uppdatera sidan.",
+    "gameNotFound": "Spel hittades inte",
+    "unauthorized": "Du är inte behörig att se detta spel"
+  }
+}

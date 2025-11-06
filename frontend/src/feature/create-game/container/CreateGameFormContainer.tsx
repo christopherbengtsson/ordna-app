@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -11,21 +12,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useCreateGame } from '../hooks/useCreateGame';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { useProfile } from '@/common/hooks/useProfile';
 import { useAuth } from '@/lib/supabase/hooks/useAuth';
+import { useProfile } from '@/common/hooks/useProfile';
+import { useCreateGame } from '../hooks/useCreateGame';
 
 interface Props {
   onGameCreated: (gameId: string) => void;
 }
 
 export function CreateGameFormContainer({ onGameCreated }: Props) {
+  const { t } = useTranslation(['game-setup', 'validation']);
   const { user } = useAuth();
   const { profile } = useProfile(user?.id);
   const { createGame, isCreatingGame } = useCreateGame();
@@ -59,7 +61,7 @@ export function CreateGameFormContainer({ onGameCreated }: Props) {
     e.preventDefault();
 
     if (!isValidForm()) {
-      toast.error('Please fill all the fields');
+      toast.error(t('form.fillAllFields', { ns: 'validation' }));
       return;
     }
 
@@ -74,12 +76,12 @@ export function CreateGameFormContainer({ onGameCreated }: Props) {
       },
       {
         onSuccess: ({ game_id }) => {
-          toast.success('Game created successfully!');
+          toast.success(t('toast.success.gameCreated', { ns: 'validation' }));
           resetForm();
           onGameCreated(game_id);
         },
         onError: (error) => {
-          toast.error(`Failed to create game: ${error.message}`);
+          toast.error(t('toast.error.createGameFailed', { ns: 'validation', message: error.message }));
         },
       },
     );
@@ -88,10 +90,10 @@ export function CreateGameFormContainer({ onGameCreated }: Props) {
   return (
     <form onSubmit={handleSubmit} className={cn('grid gap-4')}>
       <div className="grid gap-2">
-        <Label htmlFor="playerName">Your Nickname</Label>
+        <Label htmlFor="playerName">{t('create.form.nickname')}</Label>
         <Input
           id="playerName"
-          placeholder="Enter your nickname"
+          placeholder={t('create.form.nicknamePlaceholder')}
           value={playerName}
           onChange={(e) => setPlayerName(e.target.value)}
           className="min-h-11"
@@ -100,20 +102,20 @@ export function CreateGameFormContainer({ onGameCreated }: Props) {
       </div>
 
       <div className="grid gap-2">
-        <Label htmlFor="language">Language</Label>
+        <Label htmlFor="language">{t('create.form.language')}</Label>
         <Select value={language} onValueChange={setLanguage} required>
           <SelectTrigger id="language" className="min-h-11">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="sv">Swedish</SelectItem>
-            <SelectItem value="en">English</SelectItem>
+            <SelectItem value="sv">{t('create.form.languages.sv')}</SelectItem>
+            <SelectItem value="en">{t('create.form.languages.en')}</SelectItem>
           </SelectContent>
         </Select>
       </div>
 
       <div className="grid gap-2">
-        <Label htmlFor="maxPlayers">Maximum Players</Label>
+        <Label htmlFor="maxPlayers">{t('create.form.maxPlayers')}</Label>
         <Input
           id="maxPlayers"
           type="number"
@@ -128,10 +130,10 @@ export function CreateGameFormContainer({ onGameCreated }: Props) {
 
       <Accordion type="single" collapsible>
         <AccordionItem value="item-1">
-          <AccordionTrigger>More settings</AccordionTrigger>
+          <AccordionTrigger>{t('create.form.moreSettings')}</AccordionTrigger>
           <AccordionContent className={cn('grid gap-4')}>
             <div className="grid gap-2">
-              <Label htmlFor="minWordLength">Minimum Word Length</Label>
+              <Label htmlFor="minWordLength">{t('create.form.minWordLength')}</Label>
               <Input
                 id="minWordLength"
                 type="number"
@@ -144,7 +146,7 @@ export function CreateGameFormContainer({ onGameCreated }: Props) {
             </div>
 
             <div className="grid gap-2">
-              <Label htmlFor="maxMarks">Max number of marks</Label>
+              <Label htmlFor="maxMarks">{t('create.form.maxMarks')}</Label>
               <Input
                 id="maxMarks"
                 type="number"
@@ -165,7 +167,7 @@ export function CreateGameFormContainer({ onGameCreated }: Props) {
         className="w-full min-h-11 md:min-h-12"
         disabled={isCreatingGame || !playerName}
       >
-        {isCreatingGame ? 'Creating...' : 'Create Game'}
+        {isCreatingGame ? t('create.actions.creating') : t('create.actions.create')}
       </Button>
     </form>
   );

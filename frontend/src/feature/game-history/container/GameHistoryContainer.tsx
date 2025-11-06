@@ -1,4 +1,5 @@
 import { History } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Accordion,
@@ -18,6 +19,7 @@ interface Props {
 }
 
 export function GameHistoryContainer({ history, isLoading }: Props) {
+  const { t } = useTranslation('results');
   if (isLoading) {
     return <LoadingGameHistory />;
   }
@@ -31,7 +33,7 @@ export function GameHistoryContainer({ history, isLoading }: Props) {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <History className="w-5 h-5" />
-          Round History
+          {t('history.title')}
         </CardTitle>
       </CardHeader>
 
@@ -42,11 +44,10 @@ export function GameHistoryContainer({ history, isLoading }: Props) {
               <AccordionTrigger>
                 <div className="flex items-center justify-between w-full pr-4">
                   <span className="font-semibold">
-                    Round {round.roundNumber}
+                    {t('history.round', { number: round.roundNumber })}
                   </span>
                   <Badge variant="secondary">
-                    {round.moves.length} action
-                    {round.moves.length !== 1 ? 's' : ''}
+                    {t('history.action', { count: round.moves.length })}
                   </Badge>
                 </div>
               </AccordionTrigger>

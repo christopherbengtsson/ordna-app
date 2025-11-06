@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from '@tanstack/react-router';
 import { useMediaQuery } from '@/common/hooks/useMediaQuery';
 import { Button } from '@/components/ui/button';
 import {
@@ -19,15 +21,15 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer';
-import { CreateGameFormContainer } from './CreateGameFormContainer';
-import { useNavigate } from '@tanstack/react-router';
 import { ScrollArea } from '../../../components/ui/scroll-area';
+import { CreateGameFormContainer } from './CreateGameFormContainer';
 
 interface Props {
   trigger: React.ReactNode;
 }
 
 export function CreateGameDialogContainer({ trigger }: Props) {
+  const { t } = useTranslation('game-setup');
   const navigate = useNavigate();
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
@@ -42,13 +44,13 @@ export function CreateGameDialogContainer({ trigger }: Props) {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          {trigger || <Button variant="outline">Create Game</Button>}
+          {trigger || <Button variant="outline">{t('create.actions.create')}</Button>}
         </DialogTrigger>
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
-            <DialogTitle>Create New Game</DialogTitle>
+            <DialogTitle>{t('create.title')}</DialogTitle>
             <DialogDescription>
-              Configure your game settings and start playing
+              {t('create.description')}
             </DialogDescription>
           </DialogHeader>
           <CreateGameFormContainer onGameCreated={handleGameCreated} />
@@ -60,13 +62,13 @@ export function CreateGameDialogContainer({ trigger }: Props) {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        {trigger || <Button variant="outline">Create Game</Button>}
+        {trigger || <Button variant="outline">{t('create.actions.create')}</Button>}
       </DrawerTrigger>
       <DrawerContent className="px-4">
         <DrawerHeader className="text-left">
-          <DrawerTitle>Create New Game</DrawerTitle>
+          <DrawerTitle>{t('create.title')}</DrawerTitle>
           <DrawerDescription>
-            Configure your game settings and start playing
+            {t('create.description')}
           </DrawerDescription>
         </DrawerHeader>
 
@@ -74,7 +76,7 @@ export function CreateGameDialogContainer({ trigger }: Props) {
           <CreateGameFormContainer onGameCreated={handleGameCreated} />
           <DrawerFooter className="pt-2 px-0">
             <DrawerClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <Button variant="outline">{t('create.actions.cancel')}</Button>
             </DrawerClose>
           </DrawerFooter>
         </ScrollArea>

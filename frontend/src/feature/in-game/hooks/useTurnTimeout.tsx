@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useGameAction } from './useGameAction';
 import { GameActionService } from '../service/GameActionService';
 
 export const useTurnTimeout = (gameId: string) => {
+  const { t } = useTranslation('gameplay');
   const [turnDeadline, setTurnDeadline] = useState<Date | null>(null);
   const [timeLeft, setTimeLeft] = useState('');
   const [intervalMs, setIntervalMs] = useState(1000);
@@ -25,7 +27,7 @@ export const useTurnTimeout = (gameId: string) => {
 
       if (distance < 0) {
         clearInterval(interval);
-        setTimeLeft("Time's up!");
+        setTimeLeft(t('timer.timesUp'));
         setTurnDeadline(null);
 
         mutate({ p_game_id: gameId });
@@ -37,11 +39,11 @@ export const useTurnTimeout = (gameId: string) => {
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       if (hours > 0) {
-        setTimeLeft(`${hours}h ${minutes}m left`);
+        setTimeLeft(t('timer.hoursMinutesLeft', { hours, minutes }));
       } else if (minutes > 0) {
-        setTimeLeft(`${minutes}:${seconds.toString().padStart(2, '0')} left`);
+        setTimeLeft(t('timer.minutesSecondsLeft', { minutes, seconds: seconds.toString().padStart(2, '0') }));
       } else {
-        setTimeLeft(`${seconds}s left`);
+        setTimeLeft(t('timer.secondsLeft', { seconds }));
       }
     };
 
@@ -49,7 +51,7 @@ export const useTurnTimeout = (gameId: string) => {
     interval = setInterval(updateTimer, intervalMs);
 
     return () => clearInterval(interval);
-  }, [gameId, intervalMs, mutate, turnDeadline]);
+  }, [gameId, intervalMs, mutate, t, turnDeadline]);
 
   return {
     setTurnDeadline,

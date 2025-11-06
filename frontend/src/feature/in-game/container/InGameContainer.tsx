@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Trophy } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import type { GameData } from '../model/GameData';
@@ -18,6 +19,7 @@ interface Props {
 }
 
 export function InGameContainer({ gameData }: Props) {
+  const { t } = useTranslation('gameplay');
   const [showScoreboard, setShowScoreboard] = useState(false);
 
   const { mutate: submitLetter, isPending: isSubmittingLetter } = useGameAction(
@@ -183,7 +185,7 @@ export function InGameContainer({ gameData }: Props) {
                         gameData.status !== 'active'
                       }
                     >
-                      {isBluffResolution ? 'Resolve Bluff' : 'Start Turn'}
+                      {isBluffResolution ? t('actions.resolveBluff') : t('actions.startTurn')}
                     </Button>
                   </div>
                 )}

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRouterState } from '@tanstack/react-router';
+import { useTranslation } from 'react-i18next';
 import { Route } from '@/routes/_authenticated/waiting-room.$gameId';
 import { useAuth } from '@/lib/supabase/hooks/useAuth';
 import { useNavigateOnError } from '@/common/hooks/useNavigateOnError';
@@ -10,6 +11,7 @@ import { LoadingWaitingRoom } from '../component/LoadingWaitingRoom';
 import { WaitingRoomContainer } from '../container/WaitingRoomContainer';
 
 export function WaitingRoomPage() {
+  const { t } = useTranslation('validation');
   const { gameId } = Route.useParams();
   const navigate = Route.useNavigate();
   const { turnResult } = useRouterState({ select: (s) => s.location.state });
@@ -20,7 +22,7 @@ export function WaitingRoomPage() {
 
   const [dismissed, setDismissed] = useState(false);
 
-  useNavigateOnError(error, 'Could not find game');
+  useNavigateOnError(error, t('toast.error.gameNotFound'));
 
   useEffect(() => {
     // Don't navigate away if we have turnResult since we then been navigated to this page from in-game

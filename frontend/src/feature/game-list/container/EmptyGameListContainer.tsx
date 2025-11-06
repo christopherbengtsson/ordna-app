@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Gamepad2 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import {
@@ -22,6 +23,7 @@ import { CreateGameDialogContainer } from '../../create-game/container/CreateGam
 import { useInitiation } from '../../invitation/hooks/useInvitation';
 
 export function EmptyGameListContainer() {
+  const { t } = useTranslation(['game-setup', 'validation']);
   const [inviteCode, setInviteCode] = useState('');
   const { acceptInvite, isAccepting } = useInitiation();
 
@@ -33,7 +35,7 @@ export function EmptyGameListContainer() {
       },
       {
         onSuccess: () => {
-          toast.success('Game joined, waiting for host to start');
+          toast.success(t('toast.success.gameJoined', { ns: 'validation' }));
         },
         onError: (error) => {
           toast.error(error.message);
@@ -51,10 +53,9 @@ export function EmptyGameListContainer() {
           <EmptyMedia variant="icon">
             <Gamepad2 />
           </EmptyMedia>
-          <EmptyTitle>No Games</EmptyTitle>
+          <EmptyTitle>{t('gameList.empty.title')}</EmptyTitle>
           <EmptyDescription>
-            You have no games yet. Create a new one or join one by an invite
-            code.
+            {t('gameList.empty.description')}
           </EmptyDescription>
         </EmptyHeader>
         <EmptyContent>
@@ -62,17 +63,19 @@ export function EmptyGameListContainer() {
             <CreateGameDialogContainer
               trigger={
                 <Button className="w-full min-h-11 md:min-h-12">
-                  Create New Game
+                  {t('gameList.empty.action')}
                 </Button>
               }
             />
 
-            <div className="text-center text-sm text-muted-foreground">or</div>
+            <div className="text-center text-sm text-muted-foreground">
+              {t('gameList.empty.or')}
+            </div>
 
             <form onSubmit={handleJoinGame}>
               <InputGroup>
                 <InputGroupInput
-                  placeholder="Enter invite code..."
+                  placeholder={t('gameList.actions.enterInviteCode')}
                   value={inviteCode}
                   onChange={(e) => setInviteCode(e.target.value)}
                 />
@@ -81,7 +84,7 @@ export function EmptyGameListContainer() {
                     type="submit"
                     disabled={isAccepting || !inviteCode.trim().length}
                   >
-                    {isAccepting ? <Spinner /> : 'Join'}
+                    {isAccepting ? <Spinner /> : t('gameList.actions.join')}
                   </InputGroupButton>
                 </InputGroupAddon>
               </InputGroup>

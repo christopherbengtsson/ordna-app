@@ -1,0 +1,35 @@
+{
+  "toast": {
+    "success": {
+      "gameCreated": "Game created successfully!",
+      "gameJoined": "Game joined, waiting for host to start",
+      "joinedGame": "Successfully joined game!",
+      "inviteCopied": "Invite link copied!"
+    },
+    "error": {
+      "createGameFailed": "Failed to create game: {{message}}",
+      "loadGamesFailed": "Could not load games",
+      "loadGameFailed": "Could not load game",
+      "joinGameFailed": "Unknown Error, failed to join the game",
+      "lobbyNotFound": "Could not find lobby",
+      "gameNotFound": "Could not find game",
+      "signInFailed": "Unknown Error, failed to sign in anonymously",
+      "genericError": "Error: {{message}}",
+      "unknownError": "Unknown error"
+    }
+  },
+  "form": {
+    "fillAllFields": "Please fill all the fields",
+    "invalidInviteCode": "Invalid invite code",
+    "inviteCodeInvalidated": "Invite code invalidated"
+  },
+  "errors": {
+    "notFound": {
+      "title": "404",
+      "message": "Page not found"
+    },
+    "loadingError": "Unable to load any games, try again by refetching the page.",
+    "gameNotFound": "Game not found",
+    "unauthorized": "You are not authorized to view this game"
+  }
+}

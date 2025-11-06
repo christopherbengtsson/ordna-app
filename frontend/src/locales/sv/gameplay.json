@@ -1,0 +1,50 @@
+{
+  "actions": {
+    "callBluff": "Syna",
+    "callComplete": "Färdigt ord",
+    "fold": "Lägg dig",
+    "startTurn": "Starta",
+    "resolveBluff": "Besvara syning"
+  },
+  "timer": {
+    "timeLeft": "Tid kvar: {{time}}",
+    "timeExpired": "Tiden har gått ut",
+    "timesUp": "Tiden är ute!",
+    "hoursMinutesLeft": "{{hours}}h {{minutes}}m kvar",
+    "minutesSecondsLeft": "{{minutes}}:{{seconds}} kvar",
+    "secondsLeft": "{{seconds}}s kvar"
+  },
+  "sequence": {
+    "enterLetter": "Ange en bokstav",
+    "enterWord": "Ange det fullständiga ordet",
+    "currentSequence": "Nuvarande bokstäver",
+    "bluffCalled": "Föregående spelare synar dig!",
+    "bluffResolutionInstructions": "Ange det fullständiga ordet du tänkte på för att besvara syningen",
+    "revealSequence": "Klicka på \"Starta\" för att visa bokstäverna",
+    "placeFirstLetter": "Klicka på \"Starta\" för att lägga den första bokstaven",
+    "enterWordWithSequence": "Ange det fullständiga ordet som börjar med bokstäverna ovan",
+    "hasLetters": "{{count}} bokstav hittills",
+    "hasLetters_plural": "{{count}} bokstäver hittills",
+    "replayLetter": "Spela upp bokstav igen",
+    "replayLetters": "Spela upp bokstäver igen",
+    "typeWordPlaceholder": "SKRIV ORD...",
+    "letterPlaceholder": "?",
+    "submitWord": "Skicka ord",
+    "submitLetter": "Skicka bokstav"
+  },
+  "scoreboard": {
+    "title": "Scoreboard",
+    "marks": "{{count}} prickar"
+  },
+  "waitingRoom": {
+    "title": "Väntar på nästa spelare",
+    "yourTurn": "Det är din tur!",
+    "waitingForOthers": "Väntar på andra spelare",
+    "startYourMove": "Klicka på \"Spela\" för att göra ditt drag.",
+    "description": "Det är inte din tur ännu. Spelet fortsätter när andra har spelat.",
+    "currentTurn": "Nuvarande spelare",
+    "isPlaying": "spelar",
+    "play": "Spela",
+    "anonymous": "Anonym"
+  }
+}

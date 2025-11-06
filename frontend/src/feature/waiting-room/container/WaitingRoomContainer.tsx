@@ -1,4 +1,5 @@
 import { useNavigate } from '@tanstack/react-router';
+import { useTranslation } from 'react-i18next';
 import { Clock, LogIn, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -15,20 +16,26 @@ interface Props {
   isHistoryLoading: boolean;
 }
 
-const currentPlayerNickname = (playerId: string, players: GamePlayer[]) =>
-  players.find(({ id }) => id === playerId)?.nickname ?? 'Anonymous';
+const currentPlayerNickname = (
+  playerId: string,
+  players: GamePlayer[],
+  anonymousLabel: string,
+) => players.find(({ id }) => id === playerId)?.nickname ?? anonymousLabel;
 
 export function WaitingRoomContainer({
   gameData,
   history,
   isHistoryLoading,
 }: Props) {
+  const { t } = useTranslation('gameplay');
   const navigate = useNavigate();
 
   const startTurn = () => {
     navigate({
       to: '/game/$gameId',
       params: { gameId: gameData.gameId },
+      state: undefined,
+      replace: true,
     });
   };
 
@@ -42,13 +49,13 @@ export function WaitingRoomContainer({
             <div className="text-center space-y-2">
               <h1 className="text-3xl text-primary md:text-4xl font-bold bg-clip-text">
                 {gameData.isCurrentPlayer
-                  ? "It's your turn!"
-                  : 'Waiting for others'}
+                  ? t('waitingRoom.yourTurn')
+                  : t('waitingRoom.waitingForOthers')}
               </h1>
               <p className="text-sm md:text-base text-muted-foreground">
                 {gameData.isCurrentPlayer
-                  ? 'Click on "Play" to start your move.'
-                  : "It's not your turn yet. The game will continue when others have played."}
+                  ? t('waitingRoom.startYourMove')
+                  : t('waitingRoom.description')}
               </p>
             </div>
 
@@ -56,7 +63,7 @@ export function WaitingRoomContainer({
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Clock className="w-5 h-5 text-primary" />
-                  Current Turn
+                  {t('waitingRoom.currentTurn')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -67,11 +74,12 @@ export function WaitingRoomContainer({
                       {currentPlayerNickname(
                         gameData.currentPlayerId,
                         gameData.players,
+                        t('waitingRoom.anonymous'),
                       )}
                     </span>
                     <span className="text-muted-foreground">
                       {' '}
-                      is currently playing
+                      {t('waitingRoom.isPlaying')}
                     </span>
                   </p>
 
@@ -82,7 +90,7 @@ export function WaitingRoomContainer({
                       className="ml-auto"
                     >
                       {/* TODO: Use Link for preloading */}
-                      Play
+                      {t('waitingRoom.play')}
                       <LogIn className="w-4 h-4" />
                     </Button>
                   )}

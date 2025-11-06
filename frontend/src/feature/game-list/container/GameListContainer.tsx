@@ -1,7 +1,8 @@
 import { Clock, Users } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from '@tanstack/react-router';
 import { GameCardCard } from '../component/GameListCard';
 import type { GameList } from '../model/GameList';
-import { useNavigate } from '@tanstack/react-router';
 import type { Game } from '../model/Game';
 
 const emptyGameList: GameList = {
@@ -20,6 +21,7 @@ export function GameListContainer({
   userId,
   games: { currentTurn, pending, waiting, finished } = emptyGameList,
 }: Props) {
+  const { t } = useTranslation('game-setup');
   const navigate = useNavigate();
 
   const handleCardClick = (game: Game) => {
@@ -55,7 +57,7 @@ export function GameListContainer({
         <div>
           <h2 className="text-2xl font-bold mb-3 flex items-center gap-2">
             <Clock className="w-6 h-6 text-warning" />
-            Your Turn
+            {t('gameList.sections.yourTurn')}
           </h2>
           <div className="grid gap-3">
             {currentTurn.map((game) => (
@@ -74,7 +76,7 @@ export function GameListContainer({
         <div>
           <h2 className="text-2xl font-bold mb-3 flex items-center gap-2">
             <Users className="w-6 h-6 text-info" />
-            Waiting for next player
+            {t('gameList.status.waiting')}
           </h2>
           <div className="grid gap-3">
             {waiting.map((game) => (
@@ -91,7 +93,7 @@ export function GameListContainer({
 
       {pending.length > 0 && (
         <div>
-          <h2 className="text-2xl font-bold mb-3">Pending Games</h2>
+          <h2 className="text-2xl font-bold mb-3">{t('gameList.sections.pending')}</h2>
           <div className="grid gap-3">
             {pending.map((game) => (
               <GameCardCard
@@ -107,7 +109,7 @@ export function GameListContainer({
 
       {finished.length > 0 && (
         <div>
-          <h2 className="text-2xl font-bold mb-3">Finished Games</h2>
+          <h2 className="text-2xl font-bold mb-3">{t('gameList.sections.finished')}</h2>
           <div className="grid gap-3">
             {finished.map((game) => (
               <GameCardCard

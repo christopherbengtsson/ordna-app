@@ -1,0 +1,90 @@
+{
+  "create": {
+    "title": "Create New Game",
+    "description": "Configure your game settings and start playing",
+    "form": {
+      "nickname": "Your Nickname",
+      "nicknamePlaceholder": "Enter your nickname",
+      "language": "Language",
+      "languages": {
+        "sv": "Swedish",
+        "en": "English"
+      },
+      "maxPlayers": "Maximum Players",
+      "minWordLength": "Minimum Word Length",
+      "maxMarks": "Max number of marks",
+      "moreSettings": "More settings"
+    },
+    "actions": {
+      "creating": "Creating...",
+      "create": "Create Game",
+      "cancel": "Cancel"
+    }
+  },
+  "gameList": {
+    "title": "Orda",
+    "sections": {
+      "yourTurn": "Your Turn",
+      "pending": "Pending Games",
+      "waiting": "Waiting",
+      "finished": "Finished Games"
+    },
+    "status": {
+      "yourTurn": "Your Turn",
+      "waiting": "Waiting for next player"
+    },
+    "badges": {
+      "waiting": "Waiting",
+      "pending": "Pending",
+      "win": "Win"
+    },
+    "actions": {
+      "newGame": "New Game",
+      "enterInviteCode": "Enter invite code...",
+      "join": "Join"
+    },
+    "empty": {
+      "title": "No Games",
+      "description": "You have no games yet. Create a new one or join one by an invite code.",
+      "action": "Create New Game",
+      "or": "or"
+    },
+    "card": {
+      "gameNumber": "Game #{{id}}",
+      "round": "Round {{number}}",
+      "expired": "Expired",
+      "timeRemaining": "{{hours}}h {{minutes}}m",
+      "timeRemainingMinutes": "{{minutes}}m"
+    },
+    "moveTypes": {
+      "addLetter": "New letter added",
+      "callWord": "Word called",
+      "callBluff": "Bluff called",
+      "resolveBluff": "Bluff resolved",
+      "fold": "Player folded",
+      "timeout": "Player timed out"
+    }
+  },
+  "lobby": {
+    "title": "Game Lobby",
+    "waiting": "Waiting for players...",
+    "invitePlayers": "Invite Players",
+    "shareLink": "Share this link with your friends",
+    "playersJoined": "{{count}} players joined",
+    "players": "Players",
+    "host": "Host",
+    "startGame": "Start Game"
+  },
+  "invitation": {
+    "title": "Join Orda",
+    "invited": "You've been invited to join a game!",
+    "form": {
+      "nickname": "Your Name",
+      "nicknamePlaceholder": "Enter nickname"
+    },
+    "actions": {
+      "joining": "Joining...",
+      "joinGame": "Join Game"
+    }
+  }
+}

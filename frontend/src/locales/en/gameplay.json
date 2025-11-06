@@ -1,0 +1,50 @@
+{
+  "actions": {
+    "callBluff": "Call Bluff",
+    "callComplete": "Call Valid Word",
+    "fold": "Fold",
+    "startTurn": "Start Turn",
+    "resolveBluff": "Resolve Bluff"
+  },
+  "timer": {
+    "timeLeft": "Time left: {{time}}",
+    "timeExpired": "Time expired",
+    "timesUp": "Time's up!",
+    "hoursMinutesLeft": "{{hours}}h {{minutes}}m left",
+    "minutesSecondsLeft": "{{minutes}}:{{seconds}} left",
+    "secondsLeft": "{{seconds}}s left"
+  },
+  "sequence": {
+    "enterLetter": "Enter a letter",
+    "enterWord": "Enter the complete word",
+    "currentSequence": "Current sequence",
+    "bluffCalled": "Previous player called bluff!",
+    "bluffResolutionInstructions": "Enter the complete word you were thinking of to resolve the bluff",
+    "revealSequence": "Click \"Start Turn\" to reveal the sequence",
+    "placeFirstLetter": "Click \"Start Turn\" to place the first letter",
+    "enterWordWithSequence": "Enter the complete word starting with the sequence above",
+    "hasLetters": "Current sequence has {{count}} letter",
+    "hasLetters_plural": "Current sequence has {{count}} letters",
+    "replayLetter": "Replay letter",
+    "replayLetters": "Replay letters",
+    "typeWordPlaceholder": "TYPE WORD...",
+    "letterPlaceholder": "?",
+    "submitWord": "Submit Word",
+    "submitLetter": "Submit Letter"
+  },
+  "scoreboard": {
+    "title": "Scoreboard",
+    "marks": "{{count}} marks"
+  },
+  "waitingRoom": {
+    "title": "Waiting for next player",
+    "yourTurn": "It's your turn!",
+    "waitingForOthers": "Waiting for other players",
+    "startYourMove": "Click on \"Play\" to start your move.",
+    "description": "It's not your turn yet. The game will continue when others have played.",
+    "currentTurn": "Current Turn",
+    "isPlaying": "is currently playing",
+    "play": "Play",
+    "anonymous": "Anonymous"
+  }
+}

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { RotateCcw, Send } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
@@ -24,6 +25,7 @@ export function SequenceDisplay({
   isBluffResolution,
   replaySequence,
 }: Props) {
+  const { t } = useTranslation('gameplay');
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputValue, setInputValue] = useState('');
 
@@ -66,18 +68,17 @@ export function SequenceDisplay({
           {isBluffResolution ? (
             <>
               <p className="text-destructive text-lg font-semibold mb-2">
-                Previous player called bluff!
+                {t('sequence.bluffCalled')}
               </p>
               <p className="text-muted-foreground text-sm">
-                Enter the complete word you were thinking of to resolve the
-                bluff
+                {t('sequence.bluffResolutionInstructions')}
               </p>
             </>
           ) : (
             <p className="text-muted-foreground text-lg">
               {sequence.length
-                ? 'Click "Start Turn" to reveal the sequence'
-                : 'Click "Start Turn" to place the first letter'}
+                ? t('sequence.revealSequence')
+                : t('sequence.placeFirstLetter')}
             </p>
           )}
         </div>
@@ -108,19 +109,18 @@ export function SequenceDisplay({
           <div className="text-center mb-4">
             {isBluffResolution ? (
               <p className="text-sm text-muted-foreground">
-                Enter the complete word starting with the sequence above
+                {t('sequence.enterWordWithSequence')}
               </p>
             ) : (
               <>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Current sequence has {sequence.length}{' '}
-                  {sequence.length === 1 ? 'letter' : 'letters'}
+                  {t('sequence.hasLetters', { count: sequence.length })}
                 </p>
 
                 {sequence.length > 0 && (
                   <Button variant="link" onClick={replaySequence}>
                     <RotateCcw />
-                    Replay {sequence.length === 1 ? 'letter' : 'letters'}
+                    {sequence.length === 1 ? t('sequence.replayLetter') : t('sequence.replayLetters')}
                   </Button>
                 )}
               </>
@@ -148,7 +148,7 @@ export function SequenceDisplay({
                     ? 'text-2xl sm:text-3xl h-14'
                     : 'text-5xl sm:text-6xl md:text-5xl h-full'
                 }`}
-                placeholder={isBluffResolution ? 'TYPE WORD...' : '?'}
+                placeholder={isBluffResolution ? t('sequence.typeWordPlaceholder') : t('sequence.letterPlaceholder')}
               />
             </div>
 
@@ -159,7 +159,7 @@ export function SequenceDisplay({
               disabled={!inputValue.length || isLoading}
             >
               <Send className="w-5 h-5 mr-2" />
-              {isBluffResolution ? 'Submit Word' : 'Submit Letter'}
+              {isBluffResolution ? t('sequence.submitWord') : t('sequence.submitLetter')}
             </Button>
           </form>
         </div>

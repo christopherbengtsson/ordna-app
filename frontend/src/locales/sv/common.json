@@ -1,0 +1,12 @@
+{
+  "language": {
+    "label": "Språk",
+    "english": "Engelska",
+    "swedish": "Svenska"
+  },
+  "actions": {
+    "close": "Stäng",
+    "backToGames": "Dina spel"
+  },
+  "loading": "Laddar"
+}

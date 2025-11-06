@@ -1,50 +1,53 @@
+import type { TFunction } from 'i18next';
 import type { Database } from '@/common/model/generated/Database';
 
 const getMoveTypeLabel = (
   moveType: Database['public']['Enums']['move_type'],
+  t: TFunction<'results'>,
 ): string => {
   switch (moveType) {
     case 'add_letter':
-      return 'placed letter';
+      return t('history.moveTypeLabels.addLetter');
 
     case 'call_word':
-      return 'called word';
+      return t('history.moveTypeLabels.callWord');
 
     case 'call_bluff':
-      return 'called BLUFF';
+      return t('history.moveTypeLabels.callBluff');
 
     case 'resolve_bluff':
-      return 'resolved bluff with word';
+      return t('history.moveTypeLabels.resolveBluff');
 
     case 'fold':
-      return 'folded';
+      return t('history.moveTypeLabels.fold');
 
     case 'timeout':
-      return 'timed out';
+      return t('history.moveTypeLabels.timeout');
 
     default:
-      return 'something weird';
+      return '';
   }
 };
 
 const getResolutionLabel = (
   resolutionType: Database['public']['Enums']['resolution_type'] | null,
+  t: TFunction<'results'>,
 ): string => {
   if (!resolutionType) return '';
 
   switch (resolutionType) {
     case 'bluff_true':
-      return 'Bluff was correct';
+      return t('history.resolutions.bluffTrue');
     case 'bluff_false':
-      return 'Bluff was incorrect';
+      return t('history.resolutions.bluffFalse');
     case 'word_valid':
-      return 'Word was valid';
+      return t('history.resolutions.wordValid');
     case 'word_invalid':
-      return 'Word was invalid';
+      return t('history.resolutions.wordInvalid');
     case 'fold':
-      return 'Player folded';
+      return t('history.resolutions.fold');
     case 'timeout':
-      return 'Player timed out';
+      return t('history.resolutions.timeout');
     default:
       return '';
   }

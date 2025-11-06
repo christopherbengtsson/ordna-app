@@ -1,0 +1,12 @@
+{
+  "language": {
+    "label": "Language",
+    "english": "English",
+    "swedish": "Swedish"
+  },
+  "actions": {
+    "close": "Close",
+    "backToGames": "Back to Games"
+  },
+  "loading": "Loading"
+}

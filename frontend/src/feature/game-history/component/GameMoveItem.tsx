@@ -5,6 +5,7 @@ import {
   Hourglass,
   OctagonX,
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import type { Database } from '@/common/model/generated/Database';
 import { Badge } from '@/components/ui/badge';
 import { GameHistoryUtil } from '../util/GameHistoryUtil';
@@ -36,6 +37,8 @@ interface Props {
 }
 
 export function GameMoveItem({ move, round }: Props) {
+  const { t } = useTranslation('results');
+
   return (
     <div
       key={`${round.roundId}-${move.moveOrder}`}
@@ -46,7 +49,7 @@ export function GameMoveItem({ move, round }: Props) {
         <div className="flex items-center gap-2 flex-wrap">
           <span className="font-medium">{move.playerNickname}</span>
           <span className="text-sm text-muted-foreground">
-            {GameHistoryUtil.getMoveTypeLabel(move.moveType)}
+            {GameHistoryUtil.getMoveTypeLabel(move.moveType, t)}
           </span>
           {move.letterValue && (
             <Badge variant="outline" className="font-mono">
