@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useNavigate, useCanGoBack, useRouter } from '@tanstack/react-router';
-import { ArrowLeft, Check, Copy } from 'lucide-react';
+import { useNavigate } from '@tanstack/react-router';
+import { Check, Copy } from 'lucide-react';
 import { toast } from 'sonner';
 import {
   Card,
@@ -21,6 +21,7 @@ import {
   AccordionTrigger,
 } from '../../../components/ui/accordion';
 import { cn } from '../../../lib/utils';
+import { GoBackButton } from '../../../common/component/GoBackButton';
 
 interface Props {
   lobbyData: Lobby;
@@ -29,20 +30,10 @@ interface Props {
 
 export function LobbyContainer({ lobbyData, userId }: Props) {
   const navigate = useNavigate();
-  const router = useRouter();
-  const canGoBack = useCanGoBack();
   const { startGame, isStarting } = useStartGame(lobbyData.id);
 
   const inviteUrl = `${window.location.origin}/invitation?inviteCode=${lobbyData.inviteCode}`;
   const [copied, setCopied] = useState(false);
-
-  const goBack = () => {
-    if (canGoBack) {
-      router.history.back();
-    } else {
-      router.navigate({ to: '/' });
-    }
-  };
 
   const handleCopyInvite = () => {
     if (!lobbyData.inviteCode) return;
@@ -74,14 +65,7 @@ export function LobbyContainer({ lobbyData, userId }: Props) {
   return (
     <div className="flex flex-col flex-1 w-full max-w-7xl mx-auto">
       <Card className="flex-1 w-full p-4 md:p-6 shadow-card border-none">
-        <Button
-          variant="ghost"
-          onClick={goBack}
-          className="gap-2 self-start mb-4 md:mb-6"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Games
-        </Button>
+        <GoBackButton />
 
         <div className="flex-1 flex flex-col justify-center">
           <div className="w-full max-w-2xl mx-auto space-y-4 md:space-y-6">

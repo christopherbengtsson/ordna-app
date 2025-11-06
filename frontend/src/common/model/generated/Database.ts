@@ -356,6 +356,19 @@ export type Database = {
         Args: { p_game_id: string; p_player_id: string };
         Returns: undefined;
       };
+      __build_turn_result: {
+        Args: {
+          p_eliminated_player_id: string;
+          p_game_id: string;
+          p_marked_player_id: string;
+          p_move_type: Database['public']['Enums']['move_type'];
+          p_next_round_starter_id: string;
+          p_resolution_type: Database['public']['Enums']['resolution_type'];
+          p_round_status: Database['public']['Enums']['round_status'];
+          p_sequence: string;
+        };
+        Returns: Database['public']['CompositeTypes']['turn_result'];
+      };
       __process_expired_turns: {
         Args: Record<PropertyKey, never>;
         Returns: {
@@ -412,15 +425,15 @@ export type Database = {
       };
       call_bluff: {
         Args: { p_game_id: string };
-        Returns: undefined;
+        Returns: Database['public']['CompositeTypes']['turn_result'];
       };
       call_in_game_timeout: {
         Args: { p_game_id: string };
-        Returns: undefined;
+        Returns: Database['public']['CompositeTypes']['turn_result'];
       };
       call_word: {
         Args: { p_game_id: string };
-        Returns: undefined;
+        Returns: Database['public']['CompositeTypes']['turn_result'];
       };
       create_game: {
         Args: {
@@ -437,7 +450,7 @@ export type Database = {
       };
       fold: {
         Args: { p_game_id: string };
-        Returns: undefined;
+        Returns: Database['public']['CompositeTypes']['turn_result'];
       };
       get_game_by_id: {
         Args: { p_game_id: string };
@@ -496,7 +509,7 @@ export type Database = {
       };
       resolve_bluff: {
         Args: { p_game_id: string; p_word: string };
-        Returns: undefined;
+        Returns: Database['public']['CompositeTypes']['turn_result'];
       };
       start_game: {
         Args: { p_game_id: string };
@@ -507,7 +520,7 @@ export type Database = {
       };
       submit_letter: {
         Args: { p_game_id: string; p_letter: string };
-        Returns: undefined;
+        Returns: Database['public']['CompositeTypes']['turn_result'];
       };
     };
     Enums: {
@@ -529,7 +542,18 @@ export type Database = {
       round_status: 'active' | 'completed';
     };
     CompositeTypes: {
-      [_ in never]: never;
+      turn_result: {
+        marked_player_id: string | null;
+        marked_player_nickname: string | null;
+        eliminated_player_id: string | null;
+        sequence: string | null;
+        move_type: Database['public']['Enums']['move_type'] | null;
+        resolution_type: Database['public']['Enums']['resolution_type'] | null;
+        round_status: Database['public']['Enums']['round_status'] | null;
+        game_status: Database['public']['Enums']['game_status'] | null;
+        starts_next_round_player_id: string | null;
+        starts_next_round_player_nickname: string | null;
+      };
     };
   };
 };

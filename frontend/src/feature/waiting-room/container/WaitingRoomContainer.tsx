@@ -1,5 +1,5 @@
-import { useCanGoBack, useRouter } from '@tanstack/react-router';
-import { ArrowLeft, Clock, Users } from 'lucide-react';
+import { useNavigate } from '@tanstack/react-router';
+import { Clock, LogIn, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Scoreboard } from '../../in-game/component/Scoreboard';
@@ -7,6 +7,7 @@ import type { GameData } from '../../in-game/model/GameData';
 import type { GamePlayer } from '../../in-game/model/GamePlayer';
 import type { GameHistory } from '../../game-history/model/GameHistory';
 import { GameHistoryContainer } from '../../game-history/container/GameHistoryContainer';
+import { GoBackButton } from '../../../common/component/GoBackButton';
 
 interface Props {
   gameData: GameData;
@@ -22,38 +23,32 @@ export function WaitingRoomContainer({
   history,
   isHistoryLoading,
 }: Props) {
-  const router = useRouter();
-  const canGoBack = useCanGoBack();
+  const navigate = useNavigate();
 
-  const goBack = () => {
-    if (canGoBack) {
-      router.history.back();
-    } else {
-      router.navigate({ to: '/' });
-    }
+  const startTurn = () => {
+    navigate({
+      to: '/game/$gameId',
+      params: { gameId: gameData.gameId },
+    });
   };
 
   return (
     <div className="flex flex-col flex-1 w-full max-w-7xl mx-auto">
       <Card className="flex-1 w-full p-4 md:p-6 shadow-card border-none">
-        <Button
-          variant="ghost"
-          onClick={goBack}
-          className="gap-2 self-start mb-4 md:mb-6"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Games
-        </Button>
+        <GoBackButton />
 
         <div className="flex-1 flex flex-col justify-center">
           <div className="w-full max-w-2xl mx-auto space-y-4 md:space-y-6">
             <div className="text-center space-y-2">
               <h1 className="text-3xl text-primary md:text-4xl font-bold bg-clip-text">
-                Waiting for next player
+                {gameData.isCurrentPlayer
+                  ? "It's your turn!"
+                  : 'Waiting for others'}
               </h1>
               <p className="text-sm md:text-base text-muted-foreground">
-                It's not your turn yet. The game will continue when others have
-                played.
+                {gameData.isCurrentPlayer
+                  ? 'Click on "Play" to start your move.'
+                  : "It's not your turn yet. The game will continue when others have played."}
               </p>
             </div>
 
@@ -79,6 +74,18 @@ export function WaitingRoomContainer({
                       is currently playing
                     </span>
                   </p>
+
+                  {gameData.isCurrentPlayer && (
+                    <Button
+                      variant="default"
+                      onClick={startTurn}
+                      className="ml-auto"
+                    >
+                      {/* TODO: Use Link for preloading */}
+                      Play
+                      <LogIn className="w-4 h-4" />
+                    </Button>
+                  )}
                 </div>
               </CardContent>
             </Card>

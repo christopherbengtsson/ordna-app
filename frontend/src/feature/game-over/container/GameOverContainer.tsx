@@ -1,10 +1,10 @@
-import { useCanGoBack, useRouter } from '@tanstack/react-router';
-import { ArrowLeft, Award, Medal, PartyPopper, Trophy } from 'lucide-react';
+import { Award, Medal, PartyPopper, Trophy } from 'lucide-react';
+import { useAuth } from '@/lib/supabase/hooks/useAuth';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import type { GameData } from '../../in-game/model/GameData';
 import type { GameHistory } from '../../game-history/model/GameHistory';
 import { GameHistoryContainer } from '../../game-history/container/GameHistoryContainer';
+import { GoBackButton } from '../../../common/component/GoBackButton';
 
 interface Props {
   gameData: GameData;
@@ -17,28 +17,12 @@ export function GameOverContainer({
   history,
   isHistoryLoading,
 }: Props) {
-  const router = useRouter();
-  const canGoBack = useCanGoBack();
-
-  const goBack = () => {
-    if (canGoBack) {
-      router.history.back();
-    } else {
-      router.navigate({ to: '/' });
-    }
-  };
+  const { user } = useAuth();
 
   return (
     <div className="flex flex-col flex-1 w-full max-w-7xl mx-auto">
       <Card className="flex-1 w-full p-4 md:p-6 shadow-card border-none">
-        <Button
-          variant="ghost"
-          onClick={goBack}
-          className="gap-2 self-start mb-4 md:mb-6"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Games
-        </Button>
+        <GoBackButton />
 
         <div className="flex-1 flex flex-col justify-center">
           <div className="w-full max-w-2xl mx-auto space-y-4 md:space-y-6">
@@ -48,15 +32,16 @@ export function GameOverContainer({
               </div>
               <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-clip-text">
                 <div className="flex justify-center gap-4">
-                  <PartyPopper />
+                  <PartyPopper className="scale-x-[-1]" />
 
                   <span>
-                    {
-                      gameData?.players.find(
-                        ({ isEliminated }) => !isEliminated,
-                      )?.nickname
-                    }{' '}
-                    Wins!
+                    {gameData.winnerId === user?.id
+                      ? 'You win!'
+                      : `${
+                          gameData?.players.find(
+                            ({ isEliminated }) => !isEliminated,
+                          )?.nickname
+                        } won!`}
                   </span>
 
                   <PartyPopper />

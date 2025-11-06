@@ -24,10 +24,3 @@ export const router = createRouter({
   defaultNotFoundComponent: NotFoundPage,
   notFoundMode: 'fuzzy', // Smart matching for better UX
 });
-
-// Register router types for type safety
-declare module '@tanstack/react-router' {
-  interface Register {
-    router: typeof router;
-  }
-}

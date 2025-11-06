@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { useCanGoBack, useRouter } from '@tanstack/react-router';
-import { ArrowLeft, Trophy } from 'lucide-react';
+import { Trophy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import type { GameData } from '../model/GameData';
@@ -8,13 +7,11 @@ import { ActionButtons } from '../component/ActionButtons';
 import { Scoreboard } from '../component/Scoreboard';
 import { TurnTimer } from '../component/TurnTimer';
 import { SequenceDisplay } from '../component/SequenceDisplay';
+import { GameActionService } from '../service/GameActionService';
 import { useSequenceAnimation } from '../hooks/useSequenceAnimation';
-import { useSubmitLetter } from '../hooks/useSubmitLetter';
+import { useGameAction } from '../hooks/useGameAction';
 import { useTurnTimeout } from '../hooks/useTurnTimeout';
-import { useCallWord } from '../hooks/useCallWord';
-import { useCallBluff } from '../hooks/useCallBluff';
-import { useResolveBluff } from '../hooks/useResolveBluff';
-import { useFold } from '../hooks/useFold';
+import { GoBackButton } from '../../../common/component/GoBackButton';
 
 interface Props {
   gameData: GameData;
@@ -22,14 +19,27 @@ interface Props {
 
 export function InGameContainer({ gameData }: Props) {
   const [showScoreboard, setShowScoreboard] = useState(false);
-  const router = useRouter();
-  const canGoBack = useCanGoBack();
 
-  const { submitLetter, isSubmittingLetter } = useSubmitLetter(gameData.gameId);
-  const { callWord, isCallingWord } = useCallWord(gameData.gameId);
-  const { callBluff, isCallingBluff } = useCallBluff(gameData.gameId);
-  const { resolveBluff, isResolvingBluff } = useResolveBluff(gameData.gameId);
-  const { fold, isFolding } = useFold(gameData.gameId);
+  const { mutate: submitLetter, isPending: isSubmittingLetter } = useGameAction(
+    gameData.gameId,
+    GameActionService.submitLetter,
+  );
+  const { mutate: callWord, isPending: isCallingWord } = useGameAction(
+    gameData.gameId,
+    GameActionService.callWord,
+  );
+  const { mutate: callBluff, isPending: isCallingBluff } = useGameAction(
+    gameData.gameId,
+    GameActionService.callBluff,
+  );
+  const { mutate: resolveBluff, isPending: isResolvingBluff } = useGameAction(
+    gameData.gameId,
+    GameActionService.resolveBluff,
+  );
+  const { mutate: fold, isPending: isFolding } = useGameAction(
+    gameData.gameId,
+    GameActionService.fold,
+  );
   const { setTurnDeadline, timeoutStarted, timeLeft, isCallingTimeout } =
     useTurnTimeout(gameData.gameId);
 
@@ -52,14 +62,6 @@ export function InGameContainer({ gameData }: Props) {
     setCurrentLetterIndex,
   } = useSequenceAnimation(currentSequence, setTurnDeadline);
 
-  const goBack = () => {
-    if (canGoBack) {
-      router.history.back();
-    } else {
-      router.navigate({ to: '/' });
-    }
-  };
-
   const startTurn = () => {
     setAnimating(true);
     setCurrentLetterIndex(0);
@@ -67,8 +69,8 @@ export function InGameContainer({ gameData }: Props) {
 
   const handleResolveBluff = (word: string) => {
     resolveBluff({
-      word,
-      gameId: gameData.gameId,
+      p_game_id: gameData.gameId,
+      p_word: word,
     });
   };
 
@@ -79,23 +81,29 @@ export function InGameContainer({ gameData }: Props) {
     }
 
     submitLetter({
-      letter: value,
-      gameId: gameData.gameId,
+      p_game_id: gameData.gameId,
+      p_letter: value,
     });
   };
 
   const handleAction = (action: 'call-bluff' | 'call-word' | 'fold') => {
     switch (action) {
       case 'call-word':
-        callWord(gameData.gameId);
+        callWord({
+          p_game_id: gameData.gameId,
+        });
         break;
 
       case 'call-bluff':
-        callBluff(gameData.gameId);
+        callBluff({
+          p_game_id: gameData.gameId,
+        });
         break;
 
       case 'fold':
-        fold(gameData.gameId);
+        fold({
+          p_game_id: gameData.gameId,
+        });
         break;
     }
   };
@@ -137,16 +145,7 @@ export function InGameContainer({ gameData }: Props) {
         {/* Main Game Area */}
         <div className="flex flex-col w-full">
           <Card className="flex-1 w-full p-4 md:p-6 shadow-card border-border/50">
-            {!animating && !timeoutStarted && (
-              <Button
-                variant="ghost"
-                onClick={goBack}
-                className="gap-2 self-start mb-4 md:mb-6"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                Back to Games
-              </Button>
-            )}
+            {!animating && !timeoutStarted && <GoBackButton />}
 
             {/* Centered Content Area */}
             <div className="flex-1 flex flex-col justify-center">

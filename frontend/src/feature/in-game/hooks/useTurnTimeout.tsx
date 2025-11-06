@@ -1,47 +1,17 @@
 import { useEffect, useState } from 'react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { toast } from 'sonner';
-import { supabaseClient } from '@/lib/supabase/client/supabaseClient';
-import { FetchUtil } from '@/common/util/constant/queryKey';
-import { Route } from '@/routes/_authenticated/game.$gameId';
-
-const callMoveTimeout = async (gameId: string) => {
-  await supabaseClient
-    .rpc('call_in_game_timeout', { p_game_id: gameId })
-    .throwOnError();
-};
+import { useGameAction } from './useGameAction';
+import { GameActionService } from '../service/GameActionService';
 
 export const useTurnTimeout = (gameId: string) => {
-  const navigate = Route.useNavigate();
-  const queryClient = useQueryClient();
-
   const [turnDeadline, setTurnDeadline] = useState<Date | null>(null);
   const [timeLeft, setTimeLeft] = useState('');
 
   const timeoutStarted = !!timeLeft.length;
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: callMoveTimeout,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: [FetchUtil.QUERY_KEY.GAME_LIST],
-      });
-      queryClient.invalidateQueries({
-        queryKey: [FetchUtil.QUERY_KEY.GAME_DATA, gameId],
-      });
-
-      toast.success('Turn timed out');
-
-      navigate({
-        to: '/waiting-room/$gameId',
-        params: { gameId },
-        replace: true,
-      });
-    },
-    onError: (error) => {
-      toast.error(`Error: ${error.message ?? 'Unknown error'}`);
-    },
-  });
+  const { mutate, isPending } = useGameAction(
+    gameId,
+    GameActionService.callMoveTimeout,
+  );
 
   useEffect(() => {
     if (!turnDeadline) return;
@@ -57,7 +27,7 @@ export const useTurnTimeout = (gameId: string) => {
         setTimeLeft("Time's up!");
         setTurnDeadline(null);
 
-        mutate(gameId);
+        mutate({ p_game_id: gameId });
         return;
       }
 
