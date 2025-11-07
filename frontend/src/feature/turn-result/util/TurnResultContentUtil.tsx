@@ -126,9 +126,12 @@ const getTurnDescription = (props: {
         if (wasEliminated) {
           return isUserMarked
             ? t('moveResult.descriptions.resolveBluff.bluffFalse.eliminatedYou')
-            : t('moveResult.descriptions.resolveBluff.bluffFalse.eliminatedOther', {
-                nickname: markedPlayerNickname,
-              });
+            : t(
+                'moveResult.descriptions.resolveBluff.bluffFalse.eliminatedOther',
+                {
+                  nickname: markedPlayerNickname,
+                },
+              );
         }
         return isUserMarked
           ? t('moveResult.descriptions.resolveBluff.bluffFalse.markedYou')
@@ -140,9 +143,12 @@ const getTurnDescription = (props: {
         if (wasEliminated) {
           return isUserMarked
             ? t('moveResult.descriptions.resolveBluff.bluffTrue.eliminatedYou')
-            : t('moveResult.descriptions.resolveBluff.bluffTrue.eliminatedOther', {
-                nickname: markedPlayerNickname,
-              });
+            : t(
+                'moveResult.descriptions.resolveBluff.bluffTrue.eliminatedOther',
+                {
+                  nickname: markedPlayerNickname,
+                },
+              );
         }
         return isUserMarked
           ? t('moveResult.descriptions.resolveBluff.bluffTrue.markedYou')

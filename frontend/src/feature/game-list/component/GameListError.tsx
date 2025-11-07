@@ -22,9 +22,7 @@ export function GameListError() {
               <Frown />
             </EmptyMedia>
             <EmptyTitle>{t('errors.notFound.title')}</EmptyTitle>
-            <EmptyDescription>
-              {t('errors.loadingError')}
-            </EmptyDescription>
+            <EmptyDescription>{t('errors.loadingError')}</EmptyDescription>
           </EmptyHeader>
           <EmptyContent></EmptyContent>
         </Empty>

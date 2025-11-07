@@ -81,7 +81,12 @@ export function CreateGameFormContainer({ onGameCreated }: Props) {
           onGameCreated(game_id);
         },
         onError: (error) => {
-          toast.error(t('toast.error.createGameFailed', { ns: 'validation', message: error.message }));
+          toast.error(
+            t('toast.error.createGameFailed', {
+              ns: 'validation',
+              message: error.message,
+            }),
+          );
         },
       },
     );
@@ -133,7 +138,9 @@ export function CreateGameFormContainer({ onGameCreated }: Props) {
           <AccordionTrigger>{t('create.form.moreSettings')}</AccordionTrigger>
           <AccordionContent className={cn('grid gap-4')}>
             <div className="grid gap-2">
-              <Label htmlFor="minWordLength">{t('create.form.minWordLength')}</Label>
+              <Label htmlFor="minWordLength">
+                {t('create.form.minWordLength')}
+              </Label>
               <Input
                 id="minWordLength"
                 type="number"
@@ -167,7 +174,9 @@ export function CreateGameFormContainer({ onGameCreated }: Props) {
         className="w-full min-h-11 md:min-h-12"
         disabled={isCreatingGame || !playerName}
       >
-        {isCreatingGame ? t('create.actions.creating') : t('create.actions.create')}
+        {isCreatingGame
+          ? t('create.actions.creating')
+          : t('create.actions.create')}
       </Button>
     </form>
   );

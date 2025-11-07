@@ -185,7 +185,9 @@ export function InGameContainer({ gameData }: Props) {
                         gameData.status !== 'active'
                       }
                     >
-                      {isBluffResolution ? t('actions.resolveBluff') : t('actions.startTurn')}
+                      {isBluffResolution
+                        ? t('actions.resolveBluff')
+                        : t('actions.startTurn')}
                     </Button>
                   </div>
                 )}

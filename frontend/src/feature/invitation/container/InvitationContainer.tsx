@@ -88,7 +88,8 @@ export function InvitationContainer({ inviteCode }: Props) {
         },
         onError: (error) => {
           toast.error(
-            error.message ?? t('toast.error.joinGameFailed', { ns: 'validation' }),
+            error.message ??
+              t('toast.error.joinGameFailed', { ns: 'validation' }),
           );
         },
       },
@@ -124,7 +125,9 @@ export function InvitationContainer({ inviteCode }: Props) {
               className="w-full min-h-11 md:min-h-12"
               disabled={isAccepting}
             >
-              {isAccepting ? t('invitation.actions.joining') : t('invitation.actions.joinGame')}
+              {isAccepting
+                ? t('invitation.actions.joining')
+                : t('invitation.actions.joinGame')}
             </Button>
           </form>
         </CardContent>

@@ -8,5 +8,27 @@
     "close": "Stäng",
     "backToGames": "Dina spel"
   },
-  "loading": "Laddar"
+  "loading": "Laddar",
+  "pwa": {
+    "install": {
+      "title": "Välkommen till Orda!",
+      "description": "Ett strategiskt och roligt ordspel",
+      "chromium": {
+        "description": "Installera Orda för att få notiser när det är din tur! Du får också snabbare laddning och enkel åtkomst från hemskärmen."
+      },
+      "ios": {
+        "title": "Installera Orda för att få notiser när det är din tur!",
+        "subtitle": "För att installera på din enhet:",
+        "step1": "Tryck på <strong>Dela-knappen</strong> i {{browserName}}",
+        "step2": "Välj <strong>\"Lägg till på hemskärmen\"</strong>",
+        "step3": "Tryck på <strong>\"Lägg till\"</strong>",
+        "browserFallback": "din webbläsare"
+      },
+      "actions": {
+        "installNow": "Installera nu",
+        "installLater": "Installera senare",
+        "close": "Stäng"
+      }
+    }
+  }
 }

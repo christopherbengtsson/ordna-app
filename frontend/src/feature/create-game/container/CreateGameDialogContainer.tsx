@@ -44,14 +44,14 @@ export function CreateGameDialogContainer({ trigger }: Props) {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          {trigger || <Button variant="outline">{t('create.actions.create')}</Button>}
+          {trigger || (
+            <Button variant="outline">{t('create.actions.create')}</Button>
+          )}
         </DialogTrigger>
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
             <DialogTitle>{t('create.title')}</DialogTitle>
-            <DialogDescription>
-              {t('create.description')}
-            </DialogDescription>
+            <DialogDescription>{t('create.description')}</DialogDescription>
           </DialogHeader>
           <CreateGameFormContainer onGameCreated={handleGameCreated} />
         </DialogContent>
@@ -62,14 +62,14 @@ export function CreateGameDialogContainer({ trigger }: Props) {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        {trigger || <Button variant="outline">{t('create.actions.create')}</Button>}
+        {trigger || (
+          <Button variant="outline">{t('create.actions.create')}</Button>
+        )}
       </DrawerTrigger>
       <DrawerContent className="px-4">
         <DrawerHeader className="text-left">
           <DrawerTitle>{t('create.title')}</DrawerTitle>
-          <DrawerDescription>
-            {t('create.description')}
-          </DrawerDescription>
+          <DrawerDescription>{t('create.description')}</DrawerDescription>
         </DrawerHeader>
 
         <ScrollArea className="overflow-y-auto">

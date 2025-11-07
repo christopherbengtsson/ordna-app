@@ -54,9 +54,7 @@ export function EmptyGameListContainer() {
             <Gamepad2 />
           </EmptyMedia>
           <EmptyTitle>{t('gameList.empty.title')}</EmptyTitle>
-          <EmptyDescription>
-            {t('gameList.empty.description')}
-          </EmptyDescription>
+          <EmptyDescription>{t('gameList.empty.description')}</EmptyDescription>
         </EmptyHeader>
         <EmptyContent>
           <div className="flex flex-col gap-3 md:gap-4">

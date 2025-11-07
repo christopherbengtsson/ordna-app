@@ -18,7 +18,9 @@ export function ActionButtons({ onAction, sequenceLength }: Props) {
         variant="outline"
       >
         <AlertTriangle className="w-5 h-5 md:w-6 md:h-6" />
-        <span className="font-semibold text-xs md:text-sm">{t('actions.callBluff')}</span>
+        <span className="font-semibold text-xs md:text-sm">
+          {t('actions.callBluff')}
+        </span>
       </Button>
 
       <Button
@@ -28,7 +30,9 @@ export function ActionButtons({ onAction, sequenceLength }: Props) {
         variant="outline"
       >
         <XCircle className="w-5 h-5 md:w-6 md:h-6" />
-        <span className="font-semibold text-xs md:text-sm">{t('actions.fold')}</span>
+        <span className="font-semibold text-xs md:text-sm">
+          {t('actions.fold')}
+        </span>
       </Button>
 
       <Button
@@ -37,7 +41,9 @@ export function ActionButtons({ onAction, sequenceLength }: Props) {
         variant="outline"
       >
         <CheckCircle className="w-5 h-5 md:w-6 md:h-6" />
-        <span className="font-semibold text-xs md:text-sm">{t('actions.callComplete')}</span>
+        <span className="font-semibold text-xs md:text-sm">
+          {t('actions.callComplete')}
+        </span>
       </Button>
     </div>
   );

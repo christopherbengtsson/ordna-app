@@ -53,7 +53,9 @@ export function GameOverContainer({
 
             <Card className="shadow-card border-border/50">
               <CardHeader>
-                <CardTitle className="text-center">{t('gameOver.results')}</CardTitle>
+                <CardTitle className="text-center">
+                  {t('gameOver.results')}
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">

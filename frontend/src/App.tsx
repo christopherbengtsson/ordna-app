@@ -5,6 +5,7 @@ import { useAuth } from '@/lib/supabase/hooks/useAuth';
 import { supabaseClient } from '@/lib/supabase/client/supabaseClient';
 import { router } from './router';
 import { LoadingOverlay } from './components/LoadingOverlay';
+import { InstallPrompt } from '@/feature/pwa/InstallPrompt';
 
 export function App() {
   const auth = useAuth();
@@ -24,5 +25,10 @@ export function App() {
     return <LoadingOverlay />;
   }
 
-  return <RouterProvider router={router} context={routerContext} />;
+  return (
+    <>
+      <RouterProvider router={router} context={routerContext} />
+      <InstallPrompt />
+    </>
+  );
 }

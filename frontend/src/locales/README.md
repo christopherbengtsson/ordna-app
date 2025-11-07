@@ -41,9 +41,11 @@ frontend/src/@types/
 We use **5 namespaces** organized by semantic purpose:
 
 #### **1. `common` (Fallback Namespace)**
+
 Reusable UI elements used across the entire app.
 
 **Contains:**
+
 - Language switcher
 - Navigation ("Back to Games", "Close")
 - Generic buttons ("Start", "Cancel", "Create")
@@ -55,11 +57,13 @@ Reusable UI elements used across the entire app.
 ---
 
 #### **2. `game-setup` (Default Namespace)**
+
 Pre-game flow - most frequently accessed.
 
 **Features:** create-game, game-list, lobby, invitation
 
 **Contains:**
+
 - Game creation forms
 - Game list sections
 - Lobby system
@@ -70,11 +74,13 @@ Pre-game flow - most frequently accessed.
 ---
 
 #### **3. `gameplay`**
+
 Active gameplay interface.
 
 **Features:** in-game, waiting-room
 
 **Contains:**
+
 - Action buttons
 - Timer messages
 - Turn instructions
@@ -85,11 +91,13 @@ Active gameplay interface.
 ---
 
 #### **4. `results`**
+
 Turn outcomes and game completion.
 
 **Features:** move-result, game-over, game-history
 
 **Contains:**
+
 - Move result messages (40+ variations)
 - Game over screen
 - Round history
@@ -99,9 +107,11 @@ Turn outcomes and game completion.
 ---
 
 #### **5. `validation`**
+
 Error messages and validation.
 
 **Contains:**
+
 - Toast success/error messages
 - Form validation errors
 - Error pages (404, etc.)
@@ -123,12 +133,14 @@ When you request a translation, i18next follows this hierarchy:
 ```
 
 **Example:**
+
 ```tsx
 const { t } = useTranslation(); // Uses default namespace (game-setup)
 t('navigation.close'); // Not in game-setup → checks common → found!
 ```
 
 This means:
+
 - ✅ Most common translations resolve instantly (game-setup)
 - ✅ Shared UI always available (common fallback)
 - ✅ No "key not found" errors for common elements
@@ -210,6 +222,7 @@ function MyComponent() {
 ### 1. Interpolation Strategy
 
 **✅ GOOD - Runtime Values (User Names, Timestamps)**
+
 ```json
 {
   "markedPlayer": "{{nickname}} got a mark.",
@@ -222,6 +235,7 @@ t('markedPlayer', { nickname: 'Alice' }); // "Alice got a mark."
 ```
 
 **❌ BAD - Known Values**
+
 ```json
 {
   // DON'T DO THIS
@@ -232,6 +246,7 @@ t('markedPlayer', { nickname: 'Alice' }); // "Alice got a mark."
 Why? Different languages have different grammar rules. In German, this requires different articles ("der" vs "dem") based on the value, breaking localization.
 
 **✅ BETTER - Separate Complete Keys**
+
 ```json
 {
   "paymentCredit": "Charged to credit card",
@@ -240,6 +255,7 @@ Why? Different languages have different grammar rules. In German, this requires 
 ```
 
 **Our Policy:**
+
 - ✅ Player names/nicknames → **Must use interpolation** (runtime values)
 - ✅ Counts/numbers → **Use interpolation**
 - ✅ Timestamps → **Use interpolation**
@@ -265,6 +281,7 @@ t('action', { count: 5 }); // "5 actions"
 ```
 
 Swedish follows the same pattern:
+
 ```json
 {
   "action": "{{count}} handling",
@@ -277,6 +294,7 @@ Swedish follows the same pattern:
 ### 3. Key Naming Convention
 
 **✅ Use nested structure:**
+
 ```json
 {
   "create": {
@@ -292,6 +310,7 @@ Swedish follows the same pattern:
 ```
 
 **❌ Don't use flat keys:**
+
 ```json
 {
   "createTitle": "Create New Game",
@@ -305,20 +324,20 @@ Swedish follows the same pattern:
 
 ### 4. Namespace Selection Guide
 
-| Need to translate... | Use namespace | Example key |
-|---------------------|---------------|-------------|
-| Navigation, buttons | `common` | `navigation.close` |
-| Language switcher | `common` | `language.label` |
-| Game creation form | `game-setup` | `create.form.nickname` |
-| Game list | `game-setup` | `gameList.status.yourTurn` |
-| Lobby/invitation | `game-setup` | `lobby.startGame` |
-| Game actions | `gameplay` | `actions.callBluff` |
-| Timer/sequence | `gameplay` | `timer.timeLeft` |
-| Move results | `results` | `moveResult.titles.wordValid` |
-| Game over screen | `results` | `gameOver.title` |
-| Toast messages | `validation` | `toast.success.gameCreated` |
-| Form validation | `validation` | `form.fillAllFields` |
-| Error pages | `validation` | `errors.notFound.title` |
+| Need to translate... | Use namespace | Example key                   |
+| -------------------- | ------------- | ----------------------------- |
+| Navigation, buttons  | `common`      | `navigation.close`            |
+| Language switcher    | `common`      | `language.label`              |
+| Game creation form   | `game-setup`  | `create.form.nickname`        |
+| Game list            | `game-setup`  | `gameList.status.yourTurn`    |
+| Lobby/invitation     | `game-setup`  | `lobby.startGame`             |
+| Game actions         | `gameplay`    | `actions.callBluff`           |
+| Timer/sequence       | `gameplay`    | `timer.timeLeft`              |
+| Move results         | `results`     | `moveResult.titles.wordValid` |
+| Game over screen     | `results`     | `gameOver.title`              |
+| Toast messages       | `validation`  | `toast.success.gameCreated`   |
+| Form validation      | `validation`  | `form.fillAllFields`          |
+| Error pages          | `validation`  | `errors.notFound.title`       |
 
 ---
 
@@ -327,6 +346,7 @@ Swedish follows the same pattern:
 ### Step 1: Choose the Right Namespace
 
 Ask yourself:
+
 1. Is it shared UI used everywhere? → `common`
 2. Is it pre-game flow? → `game-setup`
 3. Is it during active gameplay? → `gameplay`
@@ -379,6 +399,7 @@ return <div>{t('mySection.greeting', { name: 'Alice' })}</div>;
 - Independent from game dictionary language
 
 **Resolution order:**
+
 1. localStorage (if user previously selected)
 2. Browser language (`navigator.language`)
 3. Fallback to English
@@ -393,7 +414,7 @@ Translation keys have full autocomplete support:
 
 ```tsx
 const { t } = useTranslation('gameplay');
-t('actions.') // IDE will suggest: callBluff, callComplete, fold, startTurn, resolveBluff
+t('actions.'); // IDE will suggest: callBluff, callComplete, fold, startTurn, resolveBluff
 ```
 
 ### Type Safety
@@ -401,8 +422,8 @@ t('actions.') // IDE will suggest: callBluff, callComplete, fold, startTurn, res
 Invalid keys show TypeScript errors:
 
 ```tsx
-t('invalid.key') // ❌ TypeScript error
-t('actions.callBluff') // ✅ Valid
+t('invalid.key'); // ❌ TypeScript error
+t('actions.callBluff'); // ✅ Valid
 ```
 
 ### Adding Types for New Keys
@@ -432,6 +453,7 @@ This means when you add keys to JSON files, TypeScript immediately knows about t
 ### Example 1: Game Creation Form
 
 **Before:**
+
 ```tsx
 <Label htmlFor="playerName">Your Nickname</Label>
 <Input placeholder="Enter your nickname" />
@@ -439,6 +461,7 @@ This means when you add keys to JSON files, TypeScript immediately knows about t
 ```
 
 **After:**
+
 ```tsx
 const { t } = useTranslation('game-setup');
 
@@ -454,6 +477,7 @@ const { t } = useTranslation('game-setup');
 ### Example 2: Action Buttons
 
 **Before:**
+
 ```tsx
 <Button onClick={handleCallBluff}>
   <span>Call Bluff</span>
@@ -464,6 +488,7 @@ const { t } = useTranslation('game-setup');
 ```
 
 **After:**
+
 ```tsx
 const { t } = useTranslation('gameplay');
 
@@ -480,12 +505,14 @@ const { t } = useTranslation('gameplay');
 ### Example 3: Toast Notifications
 
 **Before:**
+
 ```tsx
 toast.success('Game created successfully!');
 toast.error(`Failed to create game: ${error.message}`);
 ```
 
 **After:**
+
 ```tsx
 const { t } = useTranslation('validation');
 
@@ -498,6 +525,7 @@ toast.error(t('toast.error.createGameFailed', { message: error.message }));
 ### Example 4: Complex Move Results
 
 **Before:**
+
 ```tsx
 if (wasEliminated) {
   return isUserMarked
@@ -507,6 +535,7 @@ if (wasEliminated) {
 ```
 
 **After:**
+
 ```tsx
 const { t } = useTranslation('results');
 
@@ -514,7 +543,7 @@ if (wasEliminated) {
   return isUserMarked
     ? t('moveResult.descriptions.callWord.valid.eliminatedYou')
     : t('moveResult.descriptions.callWord.valid.eliminatedOther', {
-        nickname: markedPlayerNickname
+        nickname: markedPlayerNickname,
       });
 }
 ```
@@ -558,11 +587,13 @@ console.log(tGame('actions.callBluff')); // Should work
 ## Performance Considerations
 
 ### Current Setup
+
 - All namespaces load upfront
 - Total size: ~200 strings across 5 files
 - Very fast, no noticeable delay
 
 ### Future Optimization (If Needed)
+
 If the app grows significantly, you can enable lazy loading:
 
 ```typescript
@@ -573,6 +604,7 @@ const { t } = useTranslation('gameplay', { useSuspense: true });
 This loads the namespace on-demand when the component mounts.
 
 **When to consider:**
+
 - Total translations exceed ~1000 strings
 - Individual namespaces exceed 300 strings
 - Users complain about initial load time
@@ -588,13 +620,16 @@ For now, loading all upfront is simpler and performs well.
 When translating interpolated strings, remember:
 
 **English:**
+
 - "{{nickname}} got a mark" works for all names
 
 **Swedish:**
+
 - May need gender/case adjustments
 - Consider: "{{nickname}} fick ett märke"
 
 **For complex cases:**
+
 - Use separate keys for different grammar forms
 - Avoid interpolation when grammar varies significantly
 
@@ -605,10 +640,10 @@ Translation files include nested structure for context:
 ```json
 {
   "actions": {
-    "callBluff": "Call Bluff"  // In-game action
+    "callBluff": "Call Bluff" // In-game action
   },
   "form": {
-    "nickname": "Nickname"  // Form label
+    "nickname": "Nickname" // Form label
   }
 }
 ```

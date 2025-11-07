@@ -93,7 +93,9 @@ export function GameListContainer({
 
       {pending.length > 0 && (
         <div>
-          <h2 className="text-2xl font-bold mb-3">{t('gameList.sections.pending')}</h2>
+          <h2 className="text-2xl font-bold mb-3">
+            {t('gameList.sections.pending')}
+          </h2>
           <div className="grid gap-3">
             {pending.map((game) => (
               <GameCardCard
@@ -109,7 +111,9 @@ export function GameListContainer({
 
       {finished.length > 0 && (
         <div>
-          <h2 className="text-2xl font-bold mb-3">{t('gameList.sections.finished')}</h2>
+          <h2 className="text-2xl font-bold mb-3">
+            {t('gameList.sections.finished')}
+          </h2>
           <div className="grid gap-3">
             {finished.map((game) => (
               <GameCardCard

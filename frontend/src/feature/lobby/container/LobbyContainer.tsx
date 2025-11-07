@@ -42,7 +42,9 @@ export function LobbyContainer({ lobbyData, userId }: Props) {
 
     navigator.clipboard.writeText(inviteUrl);
     setCopied(true);
-    toast(t('toast.success.inviteCopied', { ns: 'validation' }), { duration: 5000 });
+    toast(t('toast.success.inviteCopied', { ns: 'validation' }), {
+      duration: 5000,
+    });
     setTimeout(() => setCopied(false), 5000);
   };
 
@@ -83,9 +85,7 @@ export function LobbyContainer({ lobbyData, userId }: Props) {
             <Card className="shadow-card border-border/50">
               <CardHeader>
                 <CardTitle>{t('lobby.invitePlayers')}</CardTitle>
-                <CardDescription>
-                  {t('lobby.shareLink')}
-                </CardDescription>
+                <CardDescription>{t('lobby.shareLink')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="flex gap-2">
@@ -116,7 +116,11 @@ export function LobbyContainer({ lobbyData, userId }: Props) {
 
             <Card className="shadow-card border-border/50">
               <CardHeader>
-                <CardTitle>{t('lobby.playersJoined', { count: lobbyData.players.length })}</CardTitle>
+                <CardTitle>
+                  {t('lobby.playersJoined', {
+                    count: lobbyData.players.length,
+                  })}
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <Accordion type="single" collapsible>

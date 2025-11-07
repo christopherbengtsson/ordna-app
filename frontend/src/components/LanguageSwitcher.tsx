@@ -18,7 +18,9 @@ export function LanguageSwitcher() {
   return (
     <Select
       value={i18n.language}
-      onValueChange={(value) => handleLanguageChange(value as SupportedLanguage)}
+      onValueChange={(value) =>
+        handleLanguageChange(value as SupportedLanguage)
+      }
     >
       <SelectTrigger className="w-[140px]">
         <SelectValue />

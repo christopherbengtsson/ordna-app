@@ -120,7 +120,9 @@ export function SequenceDisplay({
                 {sequence.length > 0 && (
                   <Button variant="link" onClick={replaySequence}>
                     <RotateCcw />
-                    {sequence.length === 1 ? t('sequence.replayLetter') : t('sequence.replayLetters')}
+                    {sequence.length === 1
+                      ? t('sequence.replayLetter')
+                      : t('sequence.replayLetters')}
                   </Button>
                 )}
               </>
@@ -148,7 +150,11 @@ export function SequenceDisplay({
                     ? 'text-2xl sm:text-3xl h-14'
                     : 'text-5xl sm:text-6xl md:text-5xl h-full'
                 }`}
-                placeholder={isBluffResolution ? t('sequence.typeWordPlaceholder') : t('sequence.letterPlaceholder')}
+                placeholder={
+                  isBluffResolution
+                    ? t('sequence.typeWordPlaceholder')
+                    : t('sequence.letterPlaceholder')
+                }
               />
             </div>
 
@@ -159,7 +165,9 @@ export function SequenceDisplay({
               disabled={!inputValue.length || isLoading}
             >
               <Send className="w-5 h-5 mr-2" />
-              {isBluffResolution ? t('sequence.submitWord') : t('sequence.submitLetter')}
+              {isBluffResolution
+                ? t('sequence.submitWord')
+                : t('sequence.submitLetter')}
             </Button>
           </form>
         </div>

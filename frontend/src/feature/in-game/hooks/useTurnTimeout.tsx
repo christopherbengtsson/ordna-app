@@ -41,7 +41,12 @@ export const useTurnTimeout = (gameId: string) => {
       if (hours > 0) {
         setTimeLeft(t('timer.hoursMinutesLeft', { hours, minutes }));
       } else if (minutes > 0) {
-        setTimeLeft(t('timer.minutesSecondsLeft', { minutes, seconds: seconds.toString().padStart(2, '0') }));
+        setTimeLeft(
+          t('timer.minutesSecondsLeft', {
+            minutes,
+            seconds: seconds.toString().padStart(2, '0'),
+          }),
+        );
       } else {
         setTimeLeft(t('timer.secondsLeft', { seconds }));
       }

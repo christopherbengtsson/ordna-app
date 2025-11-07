@@ -49,7 +49,7 @@ export const useGameAction = <TVariables>(
       toast.error(
         error.message
           ? t('toast.error.genericError', { message: error.message })
-          : t('toast.error.unknownError')
+          : t('toast.error.unknownError'),
       );
     },
   });

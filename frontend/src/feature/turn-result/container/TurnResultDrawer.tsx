@@ -80,7 +80,9 @@ export function TurnResultDrawer({
 
           <DescriptionContent turnResult={turnResult} userId={userId} t={t} />
           <div className="flex justify-center pt-2">
-            <Button onClick={() => onOpenChange(false)}>{t('actions.close', { ns: 'common' })}</Button>
+            <Button onClick={() => onOpenChange(false)}>
+              {t('actions.close', { ns: 'common' })}
+            </Button>
           </div>
         </DialogContent>
       </Dialog>

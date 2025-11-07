@@ -13,7 +13,9 @@ export function RoundOutcome({ round }: Props) {
     <div className="mt-4 p-3 rounded-lg bg-destructive/10 border border-destructive/20">
       <div className="flex items-center gap-2 text-sm flex-wrap">
         <span className="font-medium">{t('history.outcome')}</span>
-        <span>{GameHistoryUtil.getResolutionLabel(round.resolutionType, t)}</span>
+        <span>
+          {GameHistoryUtil.getResolutionLabel(round.resolutionType, t)}
+        </span>
         <span>-</span>
         <span className="font-medium">{round.playerWithMarkNickname}</span>
         <span>{t('history.receivedMark')}</span>

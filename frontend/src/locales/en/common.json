@@ -8,5 +8,27 @@
     "close": "Close",
     "backToGames": "Back to Games"
   },
-  "loading": "Loading"
+  "loading": "Loading",
+  "pwa": {
+    "install": {
+      "title": "Welcome to Orda!",
+      "description": "A strategic and fun word game",
+      "chromium": {
+        "description": "Install Orda to get notified when it's your turn! You'll also get faster loading and easy access from your home screen."
+      },
+      "ios": {
+        "title": "Install Orda to get notified when it's your turn!",
+        "subtitle": "To install on your device:",
+        "step1": "Tap the <strong>Share button</strong> in {{browserName}}",
+        "step2": "Select <strong>\"Add to Home Screen\"</strong>",
+        "step3": "Tap <strong>\"Add\"</strong>",
+        "browserFallback": "your browser"
+      },
+      "actions": {
+        "installNow": "Install now",
+        "installLater": "Install later",
+        "close": "Close"
+      }
+    }
+  }
 }
