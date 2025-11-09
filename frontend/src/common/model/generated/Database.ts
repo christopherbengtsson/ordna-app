@@ -201,22 +201,66 @@ export type Database = {
           },
         ];
       };
+      notifications: {
+        Row: {
+          body: string;
+          created_at: string;
+          data: Json | null;
+          id: string;
+          notification_type: Database['public']['Enums']['notification_type'];
+          title: string;
+          user_id: string;
+        };
+        Insert: {
+          body: string;
+          created_at?: string;
+          data?: Json | null;
+          id?: string;
+          notification_type: Database['public']['Enums']['notification_type'];
+          title: string;
+          user_id: string;
+        };
+        Update: {
+          body?: string;
+          created_at?: string;
+          data?: Json | null;
+          id?: string;
+          notification_type?: Database['public']['Enums']['notification_type'];
+          title?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'notifications_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       profiles: {
         Row: {
           created_at: string;
+          fcm_token: string | null;
           id: string;
+          is_app_visible: boolean;
           last_seen: string;
           nickname: string;
         };
         Insert: {
           created_at?: string;
+          fcm_token?: string | null;
           id: string;
+          is_app_visible?: boolean;
           last_seen?: string;
           nickname?: string;
         };
         Update: {
           created_at?: string;
+          fcm_token?: string | null;
           id?: string;
+          is_app_visible?: boolean;
           last_seen?: string;
           nickname?: string;
         };
@@ -403,6 +447,22 @@ export type Database = {
         Args: { p_language: string; p_word: string };
         Returns: boolean;
       };
+      _queue_game_end_notification: {
+        Args: { p_game_id: string; p_player_id: string; p_winner_id: string };
+        Returns: undefined;
+      };
+      _queue_game_start_notification: {
+        Args: { p_game_id: string; p_host_name: string; p_player_id: string };
+        Returns: undefined;
+      };
+      _queue_turn_notification: {
+        Args: {
+          p_current_sequence: string;
+          p_game_id: string;
+          p_player_id: string;
+        };
+        Returns: undefined;
+      };
       _start_new_round: {
         Args: {
           p_game_id: string;
@@ -434,6 +494,10 @@ export type Database = {
       call_word: {
         Args: { p_game_id: string };
         Returns: Database['public']['CompositeTypes']['turn_result'];
+      };
+      clear_fcm_token: {
+        Args: Record<PropertyKey, never>;
+        Returns: undefined;
       };
       create_game: {
         Args: {
@@ -511,6 +575,10 @@ export type Database = {
         Args: { p_game_id: string; p_word: string };
         Returns: Database['public']['CompositeTypes']['turn_result'];
       };
+      set_app_visibility: {
+        Args: { visible: boolean };
+        Returns: undefined;
+      };
       start_game: {
         Args: { p_game_id: string };
         Returns: {
@@ -522,6 +590,10 @@ export type Database = {
         Args: { p_game_id: string; p_letter: string };
         Returns: Database['public']['CompositeTypes']['turn_result'];
       };
+      update_fcm_token: {
+        Args: { token: string };
+        Returns: undefined;
+      };
     };
     Enums: {
       game_status: 'pending' | 'active' | 'completed';
@@ -532,6 +604,7 @@ export type Database = {
         | 'fold'
         | 'timeout'
         | 'resolve_bluff';
+      notification_type: 'your_turn' | 'game_ended' | 'game_started';
       resolution_type:
         | 'timeout'
         | 'bluff_true'
@@ -690,6 +763,7 @@ export const Constants = {
         'timeout',
         'resolve_bluff',
       ],
+      notification_type: ['your_turn', 'game_ended', 'game_started'],
       resolution_type: [
         'timeout',
         'bluff_true',

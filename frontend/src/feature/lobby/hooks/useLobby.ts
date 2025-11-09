@@ -3,7 +3,7 @@ import { supabaseClient } from '@/lib/supabase/client/supabaseClient';
 import type { LobbyDataIn } from '../model/LobbyDataIn';
 import { LobbyMapper } from '../mapper/LobbyMapper';
 import type { Lobby } from '../model/Lobby';
-import { FetchUtil } from '../../../common/util/constant/queryKey';
+import { FetchUtil } from '../../../common/util/constant/FetchUtil';
 
 const fetchLobby = async (args: LobbyDataIn): Promise<Lobby> => {
   const { data } = await supabaseClient

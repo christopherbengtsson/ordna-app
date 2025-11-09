@@ -392,7 +392,7 @@ return <div>{t('mySection.greeting', { name: 'Alice' })}</div>;
 
 ## Language Persistence
 
-- Language choice is saved in **localStorage** (key: `dansk-ui-language`)
+- Language choice is saved in **localStorage** (key: `orda-app-language`)
 - On first visit: Auto-detects from browser language
 - User can manually switch using `<LanguageSwitcher />` component
 - Choice persists across sessions
@@ -577,7 +577,7 @@ console.log(tGame('actions.callBluff')); // Should work
 
 ### Test Browser Detection
 
-1. Clear localStorage: `localStorage.removeItem('dansk-ui-language')`
+1. Clear localStorage: `localStorage.removeItem('orda-app-language')`
 2. Set browser language to Swedish
 3. Refresh the page
 4. UI should load in Swedish

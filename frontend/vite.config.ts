@@ -18,7 +18,11 @@ export default defineConfig(({ mode }) => ({
       },
     }),
     VitePWA({
+      strategies: 'injectManifest',
+      srcDir: 'src',
+      filename: 'sw.ts',
       registerType: 'autoUpdate',
+      injectRegister: 'auto',
       manifest: {
         name: 'Orda',
         short_name: 'Orda',
@@ -54,10 +58,14 @@ export default defineConfig(({ mode }) => ({
           },
         ],
       },
-      workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'],
+      injectManifest: {
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,json,woff,woff2}'],
+        maximumFileSizeToCacheInBytes: 3000000,
       },
-      devOptions: { enabled: mode === 'development' },
+      devOptions: {
+        enabled: mode === 'development',
+        type: 'module',
+      },
     }),
     tailwindcss(),
   ],

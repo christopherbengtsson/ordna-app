@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { supabaseClient } from './client/supabaseClient';
 import { AuthContext } from './context/AuthContext';
 import { useProfile } from '../../common/hooks/useProfile';
+import { NotificationService } from '../firebase/service/NotificationService';
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
@@ -36,6 +37,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   );
 
   const logout = useCallback(async () => {
+    try {
+      await NotificationService.unregisterFCMToken();
+    } catch (error) {
+      console.error('Error clearing FCM token:', error);
+      // Continue with logout even if token cleanup fails
+    }
+
     const { error } = await supabaseClient.auth.signOut();
     if (error) {
       console.error('Error signing out:', error);

@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { supabaseClient } from '@/lib/supabase/client/supabaseClient';
-import { FetchUtil } from '@/common/util/constant/queryKey';
+import { FetchUtil } from '@/common/util/constant/FetchUtil';
 import { GameHistoryMapper } from '../mapper/GameHistoryMapper';
 import type { GameHistory } from '../model/GameHistory';
 

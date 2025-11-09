@@ -6,6 +6,8 @@ import { useNavigateOnError } from '@/common/hooks/useNavigateOnError';
 import { useLobby } from '../hooks/useLobby';
 import { LoadingLobby } from '../component/LoadingLobby';
 import { LobbyContainer } from '../container/LobbyContainer';
+import { NotificationPermissionDrawer } from '@/feature/pwa/NotificationPermissionDrawer';
+import { useNotificationPermission } from '../../pwa/hooks/useNotificationPermission';
 
 export function LobbyPage() {
   const { t } = useTranslation('validation');
@@ -13,6 +15,14 @@ export function LobbyPage() {
   const { gameId } = Route.useParams();
   const navigate = Route.useNavigate();
   const { lobbyData, isLoading, isUpdating, error } = useLobby(gameId);
+
+  const {
+    showNotificationPrompt,
+    handleNotificationPromptDismiss,
+    closeNotificationPrompt,
+  } = useNotificationPermission({
+    showPromptCondition: !isLoading && !!lobbyData,
+  });
 
   useNavigateOnError(error, t('toast.error.lobbyNotFound'));
 
@@ -43,5 +53,14 @@ export function LobbyPage() {
     return <LoadingLobby />;
   }
 
-  return <LobbyContainer lobbyData={lobbyData} userId={user?.id} />;
+  return (
+    <>
+      <LobbyContainer lobbyData={lobbyData} userId={user?.id} />
+      <NotificationPermissionDrawer
+        open={showNotificationPrompt}
+        close={closeNotificationPrompt}
+        onDismiss={handleNotificationPromptDismiss}
+      />
+    </>
+  );
 }

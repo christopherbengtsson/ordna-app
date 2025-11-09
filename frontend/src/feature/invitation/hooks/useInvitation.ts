@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabaseClient } from '@/lib/supabase/client/supabaseClient';
-import { FetchUtil } from '@/common/util/constant/queryKey';
+import { FetchUtil } from '@/common/util/constant/FetchUtil';
 import type { AcceptInviteIn } from '../model/AcceptInviteIn';
 
 const acceptInvite = async (args: AcceptInviteIn) => {

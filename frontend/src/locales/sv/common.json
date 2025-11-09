@@ -29,6 +29,27 @@
         "installLater": "Installera senare",
         "close": "Stäng"
       }
+    },
+    "notifications": {
+      "title": "Få notiser när det är din tur",
+      "description": "Aktivera push-notiser för att inte missa något",
+      "benefits": {
+        "turnNotifications": "Notiser i realtid när det är din tur",
+        "gameUpdates": "Varningar när spel startar och slutar",
+        "neverMiss": "Missa aldrig din tur"
+      },
+      "actions": {
+        "enable": "Aktivera notiser",
+        "notNow": "Inte nu"
+      },
+      "denied": {
+        "title": "Notiser blockerade",
+        "message": "För att aktivera notiser, vänligen tillåt dem i din webbläsares inställningar.",
+        "close": "OK"
+      },
+      "error": {
+        "description": "Misslyckades aktivera notiser. Försök igen senare."
+      }
     }
   }
 }

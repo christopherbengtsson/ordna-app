@@ -29,6 +29,27 @@
         "installLater": "Install later",
         "close": "Close"
       }
+    },
+    "notifications": {
+      "title": "Get notified when it's your turn",
+      "description": "Enable push notifications to stay in the game",
+      "benefits": {
+        "turnNotifications": "Real-time turn notifications",
+        "gameUpdates": "Game start and end alerts",
+        "neverMiss": "Never miss your turn"
+      },
+      "actions": {
+        "enable": "Enable notifications",
+        "notNow": "Not now"
+      },
+      "denied": {
+        "title": "Notifications blocked",
+        "message": "To enable notifications, please allow them in your browser settings.",
+        "close": "Got it"
+      },
+      "error": {
+        "description": "Failed to enable notifications. Please try again later."
+      }
     }
   }
 }

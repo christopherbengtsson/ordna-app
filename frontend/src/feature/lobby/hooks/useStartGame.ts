@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabaseClient } from '@/lib/supabase/client/supabaseClient';
-import { FetchUtil, type QueryKey } from '@/common/util/constant/queryKey';
+import { FetchUtil, type QueryKey } from '@/common/util/constant/FetchUtil';
 import type { StartGameIn } from '../model/StartGameIn';
 
 const startGame = async (args: StartGameIn) => {

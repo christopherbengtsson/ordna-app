@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { FetchUtil } from '../util/constant/queryKey';
-import { supabaseClient } from '../../lib/supabase/client/supabaseClient';
+import { supabaseClient } from '@/lib/supabase/client/supabaseClient';
+import { FetchUtil } from '../util/constant/FetchUtil';
 
 const ONE_HOUR_MS = 3_600_000;
 

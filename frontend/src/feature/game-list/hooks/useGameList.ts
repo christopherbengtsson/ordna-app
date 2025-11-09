@@ -3,7 +3,7 @@ import { toast } from 'sonner';
 import { useQuery } from '@tanstack/react-query';
 import { supabaseClient } from '@/lib/supabase/client/supabaseClient';
 import type { Database } from '@/common/model/generated/Database';
-import { FetchUtil } from '@/common/util/constant/queryKey';
+import { FetchUtil } from '@/common/util/constant/FetchUtil';
 import { GameListMapper } from '../mapper/GameListMapper';
 
 const fetchGames = async (

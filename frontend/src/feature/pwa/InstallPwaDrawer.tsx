@@ -21,11 +21,11 @@ import {
   DrawerTitle,
 } from '@/components/ui/drawer';
 import { Download, LayoutGrid, Share } from 'lucide-react';
+import { STORAGE_KEY } from '@/common/util/constant/storageKey';
 
-const STORAGE_KEY = 'pwa-install-prompt-shown';
 const DAYS_UNTIL_PROMPT_AGAIN = 7;
 
-interface BeforeInstallPromptEvent extends Event {
+interface BeforeInstallPwaDrawerEvent extends Event {
   prompt: () => Promise<void>;
   userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
 }
@@ -34,12 +34,12 @@ interface NavigatorStandalone extends Navigator {
   standalone?: boolean;
 }
 
-export function InstallPrompt() {
+export function InstallPwaDrawer() {
   const { t } = useTranslation('common');
   const isDesktop = useMediaQuery('(min-width: 768px)');
   const [open, setOpen] = useState(false);
   const [deferredPrompt, setDeferredPrompt] =
-    useState<BeforeInstallPromptEvent | null>(null);
+    useState<BeforeInstallPwaDrawerEvent | null>(null);
   const [isIOS, setIsIOS] = useState(false);
 
   const parser = new UAParser();
@@ -74,7 +74,7 @@ export function InstallPrompt() {
     };
 
     // Check if enough time has passed since last shown
-    const lastShownTimestamp = localStorage.getItem(STORAGE_KEY);
+    const lastShownTimestamp = localStorage.getItem(STORAGE_KEY.PWA_INSTALL);
     const daysInMs = DAYS_UNTIL_PROMPT_AGAIN * 24 * 60 * 60 * 1000;
     const shouldShow =
       !lastShownTimestamp ||
@@ -87,7 +87,7 @@ export function InstallPrompt() {
     // Listen for the beforeinstallprompt event (Chromium browsers)
     const handler = (e: Event) => {
       e.preventDefault();
-      setDeferredPrompt(e as BeforeInstallPromptEvent);
+      setDeferredPrompt(e as BeforeInstallPwaDrawerEvent);
       setOpen(true);
     };
 
@@ -115,10 +115,10 @@ export function InstallPrompt() {
       if (outcome === 'accepted') {
         setOpen(false);
         // Don't show again if user installed
-        localStorage.removeItem(STORAGE_KEY);
+        localStorage.removeItem(STORAGE_KEY.PWA_INSTALL);
       } else {
         // User dismissed the native prompt, show again in X days
-        localStorage.setItem(STORAGE_KEY, Date.now().toString());
+        localStorage.setItem(STORAGE_KEY.PWA_INSTALL, Date.now().toString());
       }
     } catch (error) {
       console.error('Install prompt error:', error);
@@ -131,7 +131,7 @@ export function InstallPrompt() {
     setOpen(false);
     setDeferredPrompt(null);
     // Store timestamp when dismissed, will show again after X days
-    localStorage.setItem(STORAGE_KEY, Date.now().toString());
+    localStorage.setItem(STORAGE_KEY.PWA_INSTALL, Date.now().toString());
   };
 
   // Don't render if not open

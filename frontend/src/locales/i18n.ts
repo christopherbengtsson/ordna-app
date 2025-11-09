@@ -1,6 +1,7 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
+import { STORAGE_KEY } from '@/common/util/constant/storageKey';
 
 // Import all namespaces
 import enCommon from './en/common.json';
@@ -66,7 +67,7 @@ i18n
       // Order of detection
       order: ['localStorage', 'navigator'],
       // Keys to look for in localStorage
-      lookupLocalStorage: 'dansk-ui-language',
+      lookupLocalStorage: STORAGE_KEY.APP_LANGUAGE,
       // Cache user language
       caches: ['localStorage'],
     },
