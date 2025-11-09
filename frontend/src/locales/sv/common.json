@@ -49,6 +49,22 @@
       },
       "error": {
         "description": "Misslyckades aktivera notiser. Försök igen senare."
+      },
+      "messages": {
+        "yourTurn": {
+          "title": "Din tur!",
+          "body": "Det är din tur att spela"
+        },
+        "gameEnded": {
+          "won": "Du vann!",
+          "lost": "Spelet är slut",
+          "wonBody": "Grattis till segern!",
+          "lostBody": "{{winnerName}} vann spelet"
+        },
+        "gameStarted": {
+          "title": "Spelet har startat!",
+          "body": "{{hostName}} startade spelet"
+        }
       }
     }
   }

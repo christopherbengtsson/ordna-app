@@ -203,30 +203,24 @@ export type Database = {
       };
       notifications: {
         Row: {
-          body: string;
           created_at: string;
           data: Json | null;
           id: string;
           notification_type: Database['public']['Enums']['notification_type'];
-          title: string;
           user_id: string;
         };
         Insert: {
-          body: string;
           created_at?: string;
           data?: Json | null;
           id?: string;
           notification_type: Database['public']['Enums']['notification_type'];
-          title: string;
           user_id: string;
         };
         Update: {
-          body?: string;
           created_at?: string;
           data?: Json | null;
           id?: string;
           notification_type?: Database['public']['Enums']['notification_type'];
-          title?: string;
           user_id?: string;
         };
         Relationships: [
@@ -456,11 +450,13 @@ export type Database = {
         Returns: undefined;
       };
       _queue_turn_notification: {
-        Args: {
-          p_current_sequence: string;
-          p_game_id: string;
-          p_player_id: string;
-        };
+        Args:
+          | {
+              p_current_sequence: string;
+              p_game_id: string;
+              p_player_id: string;
+            }
+          | { p_game_id: string; p_player_id: string };
         Returns: undefined;
       };
       _start_new_round: {
@@ -604,6 +600,11 @@ export type Database = {
         | 'fold'
         | 'timeout'
         | 'resolve_bluff';
+      notification_action:
+        | 'navigate_to_game'
+        | 'navigate_to_game_over'
+        | 'navigate_to_lobby'
+        | 'navigate_to_waiting_room';
       notification_type: 'your_turn' | 'game_ended' | 'game_started';
       resolution_type:
         | 'timeout'
@@ -762,6 +763,12 @@ export const Constants = {
         'fold',
         'timeout',
         'resolve_bluff',
+      ],
+      notification_action: [
+        'navigate_to_game',
+        'navigate_to_game_over',
+        'navigate_to_lobby',
+        'navigate_to_waiting_room',
       ],
       notification_type: ['your_turn', 'game_ended', 'game_started'],
       resolution_type: [

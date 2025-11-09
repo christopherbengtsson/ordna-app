@@ -89,7 +89,14 @@ Deno.serve(async (req) => {
     // Build deep link URL based on action and game_id
     const deepLink = buildDeepLink(payload.record.data);
 
-    // Send FCM notification
+    // Prepare data payload with notification_type
+    // Service worker will use this to generate localized content
+    const notificationData = {
+      notification_type: payload.record.notification_type,
+      ...(payload.record.data || {}),
+    };
+
+    // Send FCM notification (data-only, no notification field)
     const res = await fetch(
       `https://fcm.googleapis.com/v1/projects/${serviceAccount.project_id}/messages:send`,
       {
@@ -101,12 +108,8 @@ Deno.serve(async (req) => {
         body: JSON.stringify({
           message: {
             token: fcmToken,
-            notification: {
-              title: payload.record.title,
-              body: payload.record.body,
-            },
             data: Object.fromEntries(
-              Object.entries(payload.record.data || {}).map(([key, value]) => [
+              Object.entries(notificationData).map(([key, value]) => [
                 key,
                 typeof value === "string" ? value : JSON.stringify(value),
               ])

@@ -3,7 +3,9 @@ import { precacheAndRoute, cleanupOutdatedCaches } from 'workbox-precaching';
 import { clientsClaim } from 'workbox-core';
 import { initializeApp } from 'firebase/app';
 import { getMessaging, onBackgroundMessage } from 'firebase/messaging/sw';
+import type { NotificationData } from '@/common/model/notification/NotificationData';
 import type { MessagePayload } from 'firebase/messaging';
+import { getNotificationText } from './locales/i18n-sw';
 
 declare let self: ServiceWorkerGlobalScope;
 
@@ -36,24 +38,27 @@ const messaging = getMessaging(app);
 onBackgroundMessage(messaging, (payload: MessagePayload) => {
   console.log('[sw.ts] Received background message:', payload);
 
-  const notificationTitle = payload.notification?.title ?? 'New notification';
+  // Generate localized notification text from payload data
+  const notificationData = (payload.data ?? {}) as NotificationData;
+  const { title, body } = getNotificationText(notificationData);
+
   const notificationOptions: NotificationOptions = {
-    body: payload.notification?.body ?? '',
+    body,
     icon: '/pwa-192x192.png',
     badge: '/pwa-64x64.png',
-    data: payload.data,
-    tag: payload.data?.game_id ?? 'default',
+    data: notificationData,
+    tag: notificationData.game_id ?? 'default',
     requireInteraction: false,
   };
 
-  self.registration.showNotification(notificationTitle, notificationOptions);
+  self.registration.showNotification(title, notificationOptions);
 });
 
 // Handle notification clicks
 self.addEventListener('notificationclick', (event: NotificationEvent) => {
   event.notification.close();
 
-  const data = event.notification.data as Record<string, string> | undefined;
+  const data = event.notification.data as NotificationData | undefined;
   const action = data?.action ?? 'navigate_to_game';
   const gameId = data?.game_id;
 

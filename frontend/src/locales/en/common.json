@@ -49,6 +49,22 @@
       },
       "error": {
         "description": "Failed to enable notifications. Please try again later."
+      },
+      "messages": {
+        "yourTurn": {
+          "title": "Your Turn!",
+          "body": "It's your turn to play"
+        },
+        "gameEnded": {
+          "won": "You Won!",
+          "lost": "Game Over",
+          "wonBody": "Congratulations on your victory!",
+          "lostBody": "{{winnerName}} won the game"
+        },
+        "gameStarted": {
+          "title": "Game Started!",
+          "body": "{{hostName}} started the game"
+        }
       }
     }
   }
